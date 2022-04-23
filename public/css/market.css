@@ -172,7 +172,7 @@ body {
     cursor: pointer;
 }
   
-.select-box__current:hover .select-box__icon {
+.select-box__current:hover .select-box__icon, .select-box__current:focus .select-box__icon {
     animation-name: arrow-movement;
     animation-iteration-count: 1000;
     animation-duration: .3s;
