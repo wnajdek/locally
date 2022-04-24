@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    display: flex;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0px;
+    font-weight: bold;
+    font-size: 2.5em;
+    color: #EA6C20;
+}
+
+.slogan {
+    text-align: left;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.7em;
+    letter-spacing: 5px;
+    color: #EA6C20;
+    margin-top: -1.5em;
+    
+}
+
+.navigation {
+    width: 20vw;
+    height: 100vh;
+    background-color: #FFB300;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2em;
+}
+
+.navigation > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 2em 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: left;
+}
+
+.navigation > ul > li {
+    padding: .8em 0;
+}
+
+.navigation > ul > li:last-child {
+    margin-top: auto;
+}
+  
+.navigation > ul > li > a {
+    display: block;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+
+.navigation > ul > li > a:hover {
+    color: black;
+    text-decoration: none;
+    animation-name: example;
+    animation-duration: .5s;
+}
+
+@keyframes example {
+    0%   {margin-left: 0px;}
+    25%  {margin-left: 5px;}
+    50%  {margin-left: -5px;}
+    100% {margin-left: 0px;}
+}
+
+.nav-icon {
+    padding: 0 .5em;
+    font-size: 1.3em;
+}
+
+.active-page {
+  color: black !important;
+  font-weight: bold;
+}
+
+.main {
+    width: 80vw;
+    height: 100vh;
+    /* background-color: #0ff2; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    font-family: 'Roboto', sans-serif;
+    width: 40vw;
+    min-width: fit-content;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background-color: #FFB300;
+    border-radius: 20px;
+    padding: 2em !important;
+}
+
+form > input {
+    width: 90%;
+    background: white;
+    border: 1px solid #707070;
+    margin: 10px;
+    padding: 1em;
+    border-radius: 3vmin;
+}
+
+form > textarea {
+    width: 90% !important;
+    background: white;
+    resize: none;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    margin-top: 2em;
+}
+
+form > button {
+    position: absolute;
+    width: 30%;
+    height: 3em;
+    background: white;
+    border: 1px solid #707070;
+    border-radius: 3vmin;
+    font-family: 'Roboto', sans-serif;
+    bottom: -5em;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .2s;
+    /* margin: auto; */
+}
+
+form > button:hover {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
