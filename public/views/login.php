@@ -22,12 +22,20 @@
                 </div>
                 
                 <h1 class="login-text">Login to Your Account</h1>
+                <div class="messages">
+                    <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+                </div>
+                <form action="login" method="POST">
+                    <input name="email" type="email" placeholder="Email">
+                    <input name="password" type="password" placeholder="Password">
     
-                <form action="">
-                    <input type="email" placeholder="Email">
-                    <input type="password" placeholder="Password">
-    
-                    <button>Sign In</button>
+                    <button type="submit">Sign In</button>
                 </form>
             </div>
         

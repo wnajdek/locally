@@ -2,9 +2,10 @@
 
 require_once 'AppController.php';
 
-class DefaultController extends AppController{
+class DefaultController extends AppController {
+
     public function index() {
-        die("index method");
+        $this -> render('login');
     }
 
     public function market() {
@@ -23,7 +24,7 @@ class DefaultController extends AppController{
         $this -> render('contact');
     }
 
-    public function login() {
-        $this -> render('login');
-    }
+//    public function login() {
+//        $this -> render('login');
+//    }
 }

@@ -24,10 +24,10 @@
     
             <ul>
                 <li><a href="market.html" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="my_products.html"><span class="mif-home nav-icon"></span>My products</a></li>
-                <li><a href="favourites.html"><span class="mif-heart nav-icon"></span>Favourites</a></li>
+                <li><a href="my_products.php"><span class="mif-home nav-icon"></span>My products</a></li>
+                <li><a href="favourites.php"><span class="mif-heart nav-icon"></span>Favourites</a></li>
                 <li><a href="info.html"><span class="mif-info nav-icon"></span>Info</a></li>
-                <li><a href="contact.html"><span class="mif-mail nav-icon"></span>Contact</a></li>
+                <li><a href="contact.php"><span class="mif-mail nav-icon"></span>Contact</a></li>
             </ul>
         </nav>
             
