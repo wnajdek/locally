@@ -16,7 +16,7 @@ class DefaultController extends AppController {
         $this -> render('favourites');
     }
 
-    public function myProducts() {
+    public function my_products() {
         $this -> render('my_products');
     }
 

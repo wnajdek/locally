@@ -36,17 +36,37 @@
         <main class="main">
             <header class="top-container">
             </header>
-            <button class="add-product-button"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>
-            
+            <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>
+
+            <div class="popup">
+                <div class="close-btn">&times;</div>
+                <h1 class="add-product-text">Add Product</h1>
+                <form action="addProduct" method="POST" enctype="multipart/form-data">
+                    <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+                    <input name="name" type="text" placeholder="Product name">
+                    <input name="image" type="file" placeholder="Image">
+                    <textarea name="details" placeholder="Product details" rows="5"></textarea>
+                    <input name="price" type="number" placeholder="Price">
+
+                    <button type="submit">Add product</button>
+                </form>
+            </div>
+
             <div class="content-container">
                 <section class="my-offer-container">
                     <div id="product1" class="product">
                         <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">
-    
+
                         <div class="product-content">
                             <h3>Eggs</h3>
                             <p>More info about eggs</p>
-                            
+
                             <p class="price">Price: $6</p>
                         </div>
 
@@ -131,5 +151,6 @@
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="public/js/my_products.js"></script>
 </body>
 </html>
