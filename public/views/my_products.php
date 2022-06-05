@@ -51,7 +51,7 @@
                     ?>
                     <input name="name" type="text" placeholder="Product name">
                     <input name="image" type="file" placeholder="Image">
-                    <textarea name="details" placeholder="Product details" rows="5"></textarea>
+                    <textarea name="description" placeholder="Product description" rows="5"></textarea>
                     <input name="price" type="number" placeholder="Price">
 
                     <button type="submit">Add product</button>

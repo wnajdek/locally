@@ -2,6 +2,7 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../models/Product.php';
+require_once __DIR__.'/../repository/ProductRepository.php';
 
 class ProductController extends AppController {
 
@@ -11,6 +12,14 @@ class ProductController extends AppController {
 
     private $messages = [];
 
+    private $productRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->productRepository = new ProductRepository();
+    }
+
     public function addProduct() {
         if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
             move_uploaded_file(
@@ -18,7 +27,8 @@ class ProductController extends AppController {
                 dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['image']['name']
             );
 
-            $product = new Product($_POST['name'], $_FILES['image']['name'], $_POST['details'], $_POST['price']);
+            $product = new Product($_POST['name'], $_POST['description'], $_POST['price'], $_FILES['image']['name']);
+            $this->productRepository->addProduct($product);
 
             return $this->render("my_products_tmp", ['messages' => $this->messages, 'product' => $product]);
         }

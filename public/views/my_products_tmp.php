@@ -65,7 +65,7 @@
 
                     <div class="product-content">
                         <h3><?= $product->getName() ?></h3>
-                        <p><?= $product->getDetails() ?></p>
+                        <p><?= $product->getDescription() ?></p>
 
                         <p class="price">Price: $<?= $product->getPrice() ?></p>
                     </div>

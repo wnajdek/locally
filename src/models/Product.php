@@ -4,14 +4,14 @@ class Product
 {
     private $name;
     private $image;
-    private $details;
+    private $description;
     private $price;
 
-    public function __construct($name, $image, $details, $price)
+    public function __construct($name, $description, $price, $image)
     {
         $this->name = $name;
         $this->image = $image;
-        $this->details = $details;
+        $this->description = $description;
         $this->price = $price;
     }
 
@@ -35,14 +35,14 @@ class Product
         $this->image = $image;
     }
 
-    public function getDetails(): string
+    public function getDescription(): string
     {
-        return $this->details;
+        return $this->description;
     }
 
-    public function setDetails(string $details)
+    public function setDescription(string $description)
     {
-        $this->details = $details;
+        $this->description = $description;
     }
 
     public function getPrice(): string
