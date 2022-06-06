@@ -62,7 +62,7 @@
                 <section class="my-offer-container">
                     <?php foreach ($products as $product): ?>
                     <div id="product1" class="product">
-                        <img src="public/uploads/<?= $product->getImage()?>" alt="">
+                        <img src="public/uploads/products/<?= $product->getImage()?>" alt="">
 
                         <div class="product-content">
                             <h3><?= $product->getName()?></h3>
