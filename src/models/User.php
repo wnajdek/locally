@@ -1,17 +1,23 @@
 <?php
 
 class User {
-    private $email;
-    private $password;
-    private $name;
-    private $surname;
+    private string $email;
+    private string $password;
+    private string $firstName;
+    private string $lastName;
+    private string $phoneNumber;
+    private string $mainAddress;
+    private string $locationDetails;
+    private string $city;
+    private string $postalCode;
+    private string $image;
 
-    public function __construct(string $email, string $password, string $name, string $surname)
+    public function __construct(string $email, string $password, string $firstName, string $lastName)
     {
         $this->email = $email;
         $this->password = $password;
-        $this->name = $name;
-        $this->surname = $surname;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
     }
 
     public function getEmail(): string
@@ -34,24 +40,84 @@ class User {
         $this->password = $password;
     }
 
-    public function getName(): string
+    public function getFirstName(): string
     {
-        return $this->name;
+        return $this->firstName;
     }
 
-    public function setName(string $name)
+    public function setFirstName(string $firstName)
     {
-        $this->name = $name;
+        $this->firstName = $firstName;
     }
 
-    public function getSurname(): string
+    public function getLastName(): string
     {
-        return $this->surname;
+        return $this->lastName;
     }
 
-    public function setSurname(string $surname)
+    public function setLastName(string $lastName)
     {
-        $this->surname = $surname;
+        $this->lastName = $lastName;
+    }
+
+    public function getPhoneNumber(): string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getMainAddress(): string
+    {
+        return $this->mainAddress;
+    }
+
+    public function setMainAddress(string $mainAddress): void
+    {
+        $this->mainAddress = $mainAddress;
+    }
+
+    public function getLocationDetails(): string
+    {
+        return $this->locationDetails;
+    }
+
+    public function setLocationDetails(string $locationDetails): void
+    {
+        $this->locationDetails = $locationDetails;
+    }
+
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): void
+    {
+        $this->city = $city;
+    }
+
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
     }
 
 

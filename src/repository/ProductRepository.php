@@ -27,7 +27,7 @@ class ProductRepository extends Repository
     }
 
     public function addProduct(Product $product): void {
-//        $date = new DateTime();
+//
         $statement = $this->database->connect()->prepare(
             'INSERT INTO public.product (name, description, price, image, product_type_id, stall_id)
             VALUES (?, ?, ?, ?, ?, ?)'
@@ -44,5 +44,27 @@ class ProductRepository extends Repository
             $productTypeId,
             $stall_id
         ]);
+    }
+
+    public function getProducts(): ?array {
+        $result = [];
+
+        $statement = $this->database->connect()->prepare('
+            SELECT * FROM public.product
+        ');
+
+        $statement->execute();
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($products as $product) {
+            $result[] = new Product(
+                $product['name'],
+                $product['description'],
+                $product['price'],
+                $product['image']
+            );
+        }
+
+        return $result;
     }
 }

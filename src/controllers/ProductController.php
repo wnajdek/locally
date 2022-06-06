@@ -8,7 +8,7 @@ class ProductController extends AppController {
 
     const MAX_FILE_SIZE = 1024*1024*1024*16;
     const SUPPORTED_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
-    const UPLOAD_DIRECTORY = '/../public/uploads/';
+    const UPLOAD_DIRECTORY = '/../public/uploads/products/';
 
     private $messages = [];
 
@@ -22,6 +22,7 @@ class ProductController extends AppController {
 
     public function addProduct() {
         if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
+            //TODO: change images location to avoid duplicated file name problem (add id of stall for example)
             move_uploaded_file(
                 $_FILES['image']['tmp_name'],
                 dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['image']['name']
@@ -30,7 +31,7 @@ class ProductController extends AppController {
             $product = new Product($_POST['name'], $_POST['description'], $_POST['price'], $_FILES['image']['name']);
             $this->productRepository->addProduct($product);
 
-            return $this->render("my_products_tmp", ['messages' => $this->messages, 'product' => $product]);
+            return $this->render("my_products", ['messages' => $this->messages, 'products' => $this->productRepository->getProducts()]);
         }
 
         $this->render('my_products', ['messages' => $this->messages]);
@@ -48,5 +49,11 @@ class ProductController extends AppController {
         }
 
         return true;
+    }
+
+    public function my_products() {
+        $products = $this->productRepository->getProducts();
+
+        $this -> render('my_products', ['products' => $products]);
     }
 }

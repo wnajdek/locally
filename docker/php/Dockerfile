@@ -22,6 +22,8 @@ ENV PHP_EXTENSIONS \
     pgsql \
     pdo_pgsql
 
+COPY ./docker/php/upload.ini /usr/local/etc/php/conf.d
+
 RUN apk add --no-cache --virtual .build-deps $BUILD_DEPS \
     && docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install -j "$(nproc)" $PHP_EXTENSIONS \

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="public/css/my_products.css">
-    <title>Market</title>
+    <title>My Products</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,75 +60,76 @@
 
             <div class="content-container">
                 <section class="my-offer-container">
+                    <?php foreach ($products as $product): ?>
                     <div id="product1" class="product">
-                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">
+                        <img src="public/uploads/<?= $product->getImage()?>" alt="">
 
                         <div class="product-content">
-                            <h3>Eggs</h3>
-                            <p>More info about eggs</p>
+                            <h3><?= $product->getName()?></h3>
+                            <p><?= $product->getDescription()?></p>
 
-                            <p class="price">Price: $6</p>
+                            <p class="price">Price: $<?= $product->getPrice()?></p>
                         </div>
 
                         <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
                         <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
                     </div>
-
-                    <div id="product2" class="product">
-                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">
-    
-                        <div class="product-content">
-                            <h3>Eggs</h3>
-                            <p>More info about eggs</p>
-                            
-                            <p class="price">Price: $6</p>
-                        </div>
-
-                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
-                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
-                    </div>
-
-                    <div id="product3" class="product">
-                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">
-    
-                        <div class="product-content">
-                            <h3>Eggs</h3>
-                            <p>More info about eggs</p>
-                            
-                            <p class="price">Price: $6</p>
-                        </div>
-
-                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
-                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
-                    </div>
-
-                    <div id="product4" class="product">
-                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">
-    
-                        <div class="product-content">
-                            <h3>Eggs</h3>
-                            <p>More info about eggs</p>
-                            
-                            <p class="price">Price: $6</p>
-                        </div>
-
-                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
-                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
-                    </div>
-
-                    <div id="product5" class="product">
-                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">
-    
-                        <div class="product-content">
-                            <h3>Eggs</h3>
-                            <p>More info about eggs</p>
-                            
-                            <p class="price">Price: $6</p>
-                        </div>
-
-                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
-                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
-                    </div>
+                    <?php endforeach; ?>
+<!--                    <div id="product2" class="product">-->
+<!--                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">-->
+<!--    -->
+<!--                        <div class="product-content">-->
+<!--                            <h3>Eggs</h3>-->
+<!--                            <p>More info about eggs</p>-->
+<!--                            -->
+<!--                            <p class="price">Price: $6</p>-->
+<!--                        </div>-->
+<!---->
+<!--                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>-->
+<!--                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div id="product3" class="product">-->
+<!--                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">-->
+<!--    -->
+<!--                        <div class="product-content">-->
+<!--                            <h3>Eggs</h3>-->
+<!--                            <p>More info about eggs</p>-->
+<!--                            -->
+<!--                            <p class="price">Price: $6</p>-->
+<!--                        </div>-->
+<!---->
+<!--                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>-->
+<!--                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div id="product4" class="product">-->
+<!--                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">-->
+<!--    -->
+<!--                        <div class="product-content">-->
+<!--                            <h3>Eggs</h3>-->
+<!--                            <p>More info about eggs</p>-->
+<!--                            -->
+<!--                            <p class="price">Price: $6</p>-->
+<!--                        </div>-->
+<!---->
+<!--                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>-->
+<!--                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div id="product5" class="product">-->
+<!--                        <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1643&q=80" alt="Photo of eggs">-->
+<!--    -->
+<!--                        <div class="product-content">-->
+<!--                            <h3>Eggs</h3>-->
+<!--                            <p>More info about eggs</p>-->
+<!--                            -->
+<!--                            <p class="price">Price: $6</p>-->
+<!--                        </div>-->
+<!---->
+<!--                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>-->
+<!--                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>-->
+<!--                    </div>-->
                 </section>
                 <aside class="owner-info-container">
                     <div class="owner-info">
