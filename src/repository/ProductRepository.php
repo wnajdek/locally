@@ -7,9 +7,9 @@ class ProductRepository extends Repository
 {
     public function getProduct(int $id): ?Product {
         $statement = $this->database->connect()->prepare(
-            "SELECT * FROM public.product WHERE email = :id"
+            "SELECT * FROM public.product WHERE id = :id"
         );
-        $statement->bindParam(':email', $id, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->execute();
 
         $product = $statement->fetch(PDO::FETCH_ASSOC);

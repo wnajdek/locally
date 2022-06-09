@@ -101,20 +101,20 @@ body {
     padding: 2em;
 }
 
-.search-bar form {
+.search-bar{
     display: flex;
 }
 
-.search-bar > form > label {
+.search-bar > label {
     
 }
 
-.search-bar > form > select {
+.search-bar  > select {
     padding: 0.5em;
     border-radius: 1000px;
 }
 
-.search-bar > form > input[type="search"] {
+.search-bar > input[type="search"] {
     width: 30vw;
     border: 1px solid #707070;
     border-radius: 1000px;
@@ -127,15 +127,15 @@ body {
     font-size: 1.2em;
 }
 
-.search-bar > form > input[type="search"]::placeholder {
+.search-bar > input[type="search"]::placeholder {
     font-size: 1em;
     transition: 0.2s;
 }
-.search-bar > form > input[type="search"]:focus::placeholder {
+.search-bar > input[type="search"]:focus::placeholder {
   transform: translateY(-200%);
 }
 
-.search-bar > form > input[type="search"]:focus {
+.search-bar > input[type="search"]:focus {
   background-position-y: -200%;
 }
 
@@ -384,4 +384,64 @@ body {
   display: flex;
   align-self: stretch;
   justify-self: stretch;
+}
+
+
+
+.owner-info {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    background-color: #FFB300;
+    width: fit-content;
+    height: fit-content;
+    padding: 2em;
+    position: absolute;
+    margin-top: 8em;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-box-shadow: 0px 0px 100px 14px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 0px 100px 14px rgba(66, 68, 90, 1);
+    box-shadow: 0px 0px 100px 14px rgba(66, 68, 90, 1);
+    opacity: 0;
+    transition: .3s;
+}
+
+.owner-info p {
+    padding: 0.5em;
+    margin: 0;
+}
+
+.owner-photo {
+    position: absolute;
+    width: 50%;
+    height: 0;
+    padding-bottom: 50%;
+    top: calc(-25% - 2em);
+    left: calc(25%);
+    background-color: red;
+    z-index: 100;
+    background-image: url("https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: 100%;
+    border-radius: 1000px;
+    border: 1px solid #707070;
+}
+
+.tile ion-icon[name="person-circle-sharp"] {
+    position: absolute;
+    left: 1rem;
+    bottom: 1.5rem;
+    font-size: 3rem;
+    color: #000;
+}
+
+.tile ion-icon[name="person-circle-sharp"]:hover {
+    cursor: pointer;
+    animation: arrow-movement;
+    animation-duration: .3s;
+}
+
+.owner-icon:hover + .owner-info {
+    opacity: 1;
 }

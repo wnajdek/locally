@@ -23,11 +23,11 @@
             <p class="slogan">Because the good stuff is local</p>
     
             <ul>
-                <li><a href="market.php"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="my_products.php"><span class="mif-home nav-icon"></span>My products</a></li>
-                <li><a href="favourites.html" class="active-page"><span class="mif-heart nav-icon"></span>Favourites</a></li>
-                <li><a href="info.html"><span class="mif-info nav-icon"></span>Info</a></li>
-                <li><a href="contact.php"><span class="mif-mail nav-icon"></span>Contact</a></li>
+                <li><a href="market"><span class="mif-shop nav-icon"></span>Market</a></li>
+                <li><a href="my_products"><span class="mif-home nav-icon"></span>My products</a></li>
+                <li><a href="favourites" class="active-page"><span class="mif-heart nav-icon"></span>Favourites</a></li>
+                <li><a href="info"><span class="mif-info nav-icon"></span>Info</a></li>
+                <li><a href="contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
             </ul>
         </nav>
             
@@ -37,7 +37,7 @@
                     <form action="">
                         <div class="select-box">
                             <div class="select-box__current" tabindex="1">
-                                <img class="select-box__icon" src="../image/chevron-down-circle-outline.svg" alt="Arrow Icon"
+                                <img class="select-box__icon" src="public/image/chevron-down-circle-outline.svg" alt="Arrow Icon"
                                     aria-hidden="true"/>
                                 <div class="select-box__value">
                                     <input class="select-box__input" type="radio" id="0" value="1" name="option" checked="checked" />
