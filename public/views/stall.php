@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="public/css/my_products.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/my_products.css">
     <title>My Products</title>
 
     <!-- Google Fonts -->
@@ -25,8 +25,8 @@
             <p class="slogan">Because the good stuff is local</p>
     
             <ul>
-                <li><a href="/market"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="/my_products" class="active-page"><span class="mif-home nav-icon"></span>My products</a></li>
+                <li><a href="/market" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>
+                <li><a href="/my_products"><span class="mif-home nav-icon"></span>My products</a></li>
                 <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
                 <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
                 <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
@@ -36,7 +36,7 @@
         <main class="main">
             <header class="top-container">
             </header>
-            <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>
+<!--            <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>-->
 
             <div class="popup">
                 <div class="close-btn">&times;</div>
@@ -61,8 +61,8 @@
             <div class="content-container">
                 <section class="my-offer-container">
                     <?php foreach ($products as $product): ?>
-                    <div id="product1" class="product">
-                        <img src="public/uploads/products/<?= $product->getImage()?>" alt="">
+                    <div id="<?= $product->getId()?>" class="product">
+                        <img src="/public/uploads/products/<?= $product->getImage()?>" alt="">
 
                         <div class="product-content">
                             <h3><?= $product->getName()?></h3>
@@ -71,8 +71,8 @@
                             <p class="price">Price: $<?= $product->getPrice()?></p>
                         </div>
 
-                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
-                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
+<!--                        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>-->
+<!--                        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>-->
                     </div>
                     <?php endforeach; ?>
                 </section>
@@ -97,6 +97,6 @@
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="public/js/my_products.js"></script>
+<!--    <script src="/public/js/my_products.js"></script>-->
 </body>
 </html>

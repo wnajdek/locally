@@ -12,8 +12,11 @@ Router::get('market', 'StallController');
 Router::get('favourites', 'DefaultController');
 Router::get('my_products', 'ProductController');
 Router::get('contact', 'DefaultController');
+Router::get('like', 'StallController');
+
 
 Router::post('login', 'SecurityController');
+Router::post('logout', 'SecurityController');
 Router::post('register', 'SecurityController');
 Router::post('addProduct', 'ProductController');
 Router::post('search', 'StallController');

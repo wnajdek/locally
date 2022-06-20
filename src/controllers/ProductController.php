@@ -21,14 +21,25 @@ class ProductController extends AppController {
     }
 
     public function addProduct() {
+        session_start();
+        if (!isset($_SESSION['userStallId'])) {
+            $this->render('login', ['messages' => ['You have to log in first.']]);
+        }
         if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
             //TODO: change images location to avoid duplicated file name problem (add id of stall for example)
             move_uploaded_file(
                 $_FILES['image']['tmp_name'],
-                dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['image']['name']
+                dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'] . '/' . $_FILES['image']['name']
             );
 
-            $product = new Product($_POST['name'], $_POST['description'], $_POST['price'], $_FILES['image']['name']);
+            $product = new Product(
+                $_POST['name'],
+                $_POST['description'],
+                $_POST['price'],
+                $_FILES['image']['name'],
+                1,
+                $_SESSION['userStallId']
+            );
             $this->productRepository->addProduct($product);
 
             return $this->render("my_products", ['messages' => $this->messages, 'products' => $this->productRepository->getProducts()]);

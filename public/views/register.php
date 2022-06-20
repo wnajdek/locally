@@ -22,9 +22,18 @@
     <main class="main">
         <div class="register-container">
             <h1>Register</h1>
-            <form action="">
+            <div class="messages">
+                <?php
+                if(isset($messages)){
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                }
+                ?>
+            </div>
+            <form action="/register" method="POST" enctype="multipart/form-data">
                 <input type="email" name="email" placeholder="Email">
-                <input type="pasword" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Password">
                 <input type="password" name="passwordRepeat" placeholder="Repeat your password">
                 <input type="text" name="firstName" placeholder="First name">
                 <input type="text" name="lastName" placeholder="Last name">

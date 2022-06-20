@@ -11,8 +11,10 @@ class Stall
     private $userId;
     private $stallTypeId;
     private $public;
+    private $id;
 
-    public function __construct($name, $description, $image, $likes = 0, $views = 0, $createdAt = null, $stallTypeId = null, $userId = null, $public = false)
+    public function __construct($name, $description, $image, $likes = 0, $views = 0, $createdAt = null,
+                                $stallTypeId = null, $userId = null, $public = false, $id = null)
     {
         $this->name = $name;
         $this->description = $description;
@@ -23,6 +25,7 @@ class Stall
         $this->stallTypeId = $stallTypeId;
         $this->userId = $userId;
         $this->public = $public;
+        $this->id = $id;
     }
 
 
@@ -106,7 +109,7 @@ class Stall
         $this->stallTypeId = $stallTypeId;
     }
 
-    public function getPublic()
+    public function getPublic(): bool
     {
         return $this->public;
     }
@@ -114,6 +117,16 @@ class Stall
     public function setPublic($public): void
     {
         $this->public = $public;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
 

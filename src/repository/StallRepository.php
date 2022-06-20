@@ -31,14 +31,15 @@ class StallRepository extends Repository
     }
 
     public function addStall(Stall $stall): void {
-//
+
         $statement = $this->database->connect()->prepare(
-            'INSERT INTO public.stall (name, likes, views, description, user_id, stall_type_id, image, created_at, public)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+            'INSERT INTO public.stall ("name", likes, views, description, user_id, stall_type_id, image)
+            VALUES (?, ?, ?, ?, ?, ?, ?)'
         );
 
         $createdAt = new DateTime();
-        $user_id = 2;
+        $createdAtString = date_format($createdAt,"Y-m-d");
+//        $user_id = 2;
         $stall_type_id = 1;
 
         $statement->execute([
@@ -46,11 +47,9 @@ class StallRepository extends Repository
             $stall->getLikes(),
             $stall->getViews(),
             $stall->getDescription(),
-            $user_id,
+            $stall->getUserId(),
             $stall_type_id,
-            $stall->getImage(),
-            $createdAt,
-            false
+            $stall->getImage()
         ]);
     }
 
@@ -88,6 +87,31 @@ class StallRepository extends Repository
         return -1;
     }
 
+    public function getStallByUserId(int $id): ?Stall {
+        $statement = $this->database->connect()->prepare('
+            SELECT * FROM public.stall
+            WHERE user_id = :userId;
+        ');
+
+        $statement->bindParam(':userId', $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        $stall = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return new Stall(
+            $stall['name'],
+            $stall['description'],
+            $stall['image'],
+            $stall['likes'],
+            $stall['views'],
+            $stall['created_at'],
+            $stall['stall_type_id'],
+            $stall['user_id'],
+            $stall['is_public'],
+            $stall['id']
+        );
+    }
+
     public function getStalls(): ?array {
         $result = [];
 
@@ -107,11 +131,22 @@ class StallRepository extends Repository
                 $stall['views'],
                 $stall['created_at'],
                 $stall['stall_type_id'],
-                $stall['user_id']
+                $stall['user_id'],
+                $stall['is_public'],
+                $stall['id']
             );
 
         }
 
         return $result;
+    }
+
+    public function like(int $id) {
+        $statement = $this->database->connect()->prepare('
+            UPDATE stall SET likes = likes + 1 WHERE id = :id
+        ');
+
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
     }
 }

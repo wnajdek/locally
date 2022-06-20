@@ -3,6 +3,18 @@ body {
     background: linear-gradient(90deg, #FFB300 60vw, white 40vw);
 }
 
+button, .sign-up-tile > button {
+    position: relative;
+    transition: 0.25s;
+}
+
+button:hover, .sign-up-tile > button:hover,
+button:focus, .sign-up-tile > button:focus{
+    cursor: pointer;
+    color: white;
+    background-color: black;
+}
+
 .container {
     width: 100vw;
     height: 100vh;

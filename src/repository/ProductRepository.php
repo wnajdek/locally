@@ -17,12 +17,16 @@ class ProductRepository extends Repository
         if (!$product) {
             return null;
         }
-
+        $productTypeId = 1;
+        $stallId = 1;
         return new Product(
             $product['name'],
             $product['description'],
             $product['price'],
-            $product['image']
+            $product['image'],
+            $product['product_type_id'],
+            $product['stall_id'],
+            $product['id']
         );
     }
 
@@ -49,19 +53,32 @@ class ProductRepository extends Repository
     public function getProducts(): ?array {
         $result = [];
 
-        $statement = $this->database->connect()->prepare('
-            SELECT * FROM public.product
-        ');
+        if (func_num_args() == 0) {
+            $statement = $this->database->connect()->prepare('
+                SELECT * FROM public.product
+            ');
+        } else {
+            $statement = $this->database->connect()->prepare('
+                SELECT * FROM public.product WHERE stall_id = :stallId
+            ');
+            $stallId = func_get_arg(0);
+            $statement->bindParam(':stallId', $stallId, PDO::PARAM_INT);
+        }
 
         $statement->execute();
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+        $productTypeId = 1;
+        $stallId = 1;
         foreach ($products as $product) {
             $result[] = new Product(
                 $product['name'],
                 $product['description'],
                 $product['price'],
-                $product['image']
+                $product['image'],
+                $product['product_type_id'],
+                $product['stall_id'],
+                $product['id']
             );
         }
 

@@ -43,7 +43,7 @@
             <div class="sign-up-tile">
                 <h1 class="text-above-sign-up-button">Are You New Here?</h1>
     
-                <button>Sign Up</button>
+                <button onclick="location.href='/register'">Sign Up</button>
             </div>
         </div>
     </div>

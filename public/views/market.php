@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
 
     <script src="public/js/searchBox.js" type="text/javascript" defer></script>
+    <script src="public/js/stats.js" type="text/javascript" defer></script>
+    <script src="public/js/stall.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div class="main-container">
@@ -24,11 +26,11 @@
             <p class="slogan">Because the good stuff is local</p>
     
             <ul>
-                <li><a href="market" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="my_products"><span class="mif-home nav-icon"></span>My products</a></li>
-                <li><a href="favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
-                <li><a href="info"><span class="mif-info nav-icon"></span>Info</a></li>
-                <li><a href="contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
+                <li><a href="/market" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>
+                <li><a href="/my_products"><span class="mif-home nav-icon"></span>My products</a></li>
+                <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
+                <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
+                <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
             </ul>
         </nav>
             
@@ -77,7 +79,7 @@
             </header>
             <section class="offers">
                 <?php foreach ($stalls as $stall): ?>
-                    <div id="market1" class="tile">
+                    <div id="<?= $stall->getId() ?>" class="tile">
                         <img src="public/uploads/stalls/<?= $stall->getImage()?>" alt="Foto of market or local products">
 
                         <h3><?= $stall->getName()?></h3>

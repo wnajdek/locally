@@ -3,6 +3,7 @@
 require_once 'AppController.php';
 require_once __DIR__.'/../models/Stall.php';
 require_once __DIR__.'/../repository/StallRepository.php';
+require_once __DIR__.'/../repository/ProductRepository.php';
 
 class StallController extends AppController {
 
@@ -13,11 +14,13 @@ class StallController extends AppController {
     private $messages = [];
 
     private $stallRepository;
+    private $productRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->stallRepository = new StallRepository();
+        $this->productRepository = new ProductRepository();
     }
 
     public function addStall() {
@@ -52,10 +55,22 @@ class StallController extends AppController {
     }
 
     public function market() {
-        $stalls = $this->stallRepository->getStalls();
+        session_start();
+        var_dump($_SESSION);
+        if (func_num_args() == 0 || !func_get_arg(0)) {
+            $stalls = $this->stallRepository->getStalls();
 
-        $this -> render('market', ['stalls' => $stalls]);
+            $this -> render('market', ['stalls' => $stalls]);
+        } else {
+            $id = (int) func_get_arg(0);
+            $stall = $this->stallRepository->getStall($id);
+
+            $products = $this->productRepository->getProducts($id);
+            $this -> render('stall', ['products' => $products, 'stalls' => $stall]);
+        }
+
     }
+
 
     public function search() {
         $type = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
@@ -74,5 +89,10 @@ class StallController extends AppController {
             }
 
         }
+    }
+
+    public function like(int $id) {
+        $this->stallRepository->like($id);
+        http_response_code(200);
     }
 }

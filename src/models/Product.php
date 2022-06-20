@@ -6,13 +6,19 @@ class Product
     private $image;
     private $description;
     private $price;
+    private $productTypeId;
+    private $stallId;
+    private $id;
 
-    public function __construct($name, $description, $price, $image)
+    public function __construct($name, $description, $price, $image, $productTypeId, $stallId, $id = null)
     {
         $this->name = $name;
         $this->image = $image;
         $this->description = $description;
         $this->price = $price;
+        $this->productTypeId = $productTypeId;
+        $this->stallId = $stallId;
+        $this->id = $id;
     }
 
     public function getName(): string
@@ -53,6 +59,36 @@ class Product
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    public function getProductTypeId(): int
+    {
+        return $this->productTypeId;
+    }
+
+    public function setProductTypeId($productTypeId): void
+    {
+        $this->productTypeId = $productTypeId;
+    }
+
+    public function getStallId(): int
+    {
+        return $this->stallId;
+    }
+
+    public function setStallId($stallId): void
+    {
+        $this->stallId = $stallId;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
 
