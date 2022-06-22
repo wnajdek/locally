@@ -88,7 +88,7 @@
                         <button class="tile-button">See offer</button>
 
                         <div class="likes">
-                            <button><span class="mif-heart"></span></button>
+                            <button><span class="mif-heart <?= in_array($stall->getId(), $likedStalls) ? 'liked' : 'not-liked'; ?>"></span></button>
                             <span class="likes-number"><?= $stall->getLikes()?></span>
                         </div>
 
@@ -103,59 +103,6 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-
-<!--                <div id="market2" class="tile">-->
-<!--                    <img src="https://images.unsplash.com/photo-1507844090982-e6e9452ea68d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1732&q=80" alt="Foto of market or local products">-->
-<!---->
-<!--                    <h3>Stoisko Ewy</h3>-->
-<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie euismod blandit. Vivamus vel ligula tortor. Mauris dictum commodo commodo. Curabitur finibus gravida lorem et ... </p>-->
-<!--                    -->
-<!--                    <button class="tile-button">See offer</button>-->
-<!---->
-<!--                    <div class="likes">-->
-<!--                        <button><span class="mif-heart"></span></button>-->
-<!--                        <span class="likes-number">20</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div id="market3" class="tile">-->
-<!--                    <img src="https://images.unsplash.com/photo-1507844090982-e6e9452ea68d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1732&q=80" alt="Foto of market or local products">-->
-<!---->
-<!--                    <h3>Stoisko Ewy</h3>-->
-<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie euismod blandit. Vivamus vel ligula tortor. Mauris dictum commodo commodo. Curabitur finibus gravida lorem et ... </p>-->
-<!--                    -->
-<!--                    <button class="tile-button">See offer</button>-->
-<!---->
-<!--                    <div class="likes">-->
-<!--                        <button><span class="mif-heart"></span></button>-->
-<!--                        <span class="likes-number">20</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div id="market4" class="tile">-->
-<!--                    <img src="https://images.unsplash.com/photo-1507844090982-e6e9452ea68d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1732&q=80" alt="Foto of market or local products">-->
-<!---->
-<!--                    <h3>Stoisko Ewy</h3>-->
-<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie euismod blandit. Vivamus vel ligula tortor. Mauris dictum commodo commodo. Curabitur finibus gravida lorem et ... </p>-->
-<!--                    -->
-<!--                    <button class="tile-button">See offer</button>-->
-<!---->
-<!--                    <div class="likes">-->
-<!--                        <button><span class="mif-heart"></span></button>-->
-<!--                        <span class="likes-number">20</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div id="market5" class="tile">-->
-<!--                    <img src="https://images.unsplash.com/photo-1507844090982-e6e9452ea68d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1732&q=80" alt="Foto of market or local products">-->
-<!---->
-<!--                    <h3>Stoisko Ewy</h3>-->
-<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie euismod blandit. Vivamus vel ligula tortor. Mauris dictum commodo commodo. Curabitur finibus gravida lorem et ... </p>-->
-<!--                    -->
-<!--                    <button class="tile-button">See offer</button>-->
-<!---->
-<!--                    <div class="likes">-->
-<!--                        <button><span class="mif-heart"></span></button>-->
-<!--                        <span class="likes-number">20</span>-->
-<!--                    </div>-->
-<!--                </div>-->
             </section>
         </main>
         <div class="search-container">

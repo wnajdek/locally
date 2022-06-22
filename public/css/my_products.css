@@ -362,6 +362,10 @@ body {
     cursor: pointer;
 }
 
+.hidden-input {
+    display: none;
+}
+
 form {
     width: 100%;
     display: flex;

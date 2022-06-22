@@ -17,6 +17,8 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/bcb9ab98f6.js" crossorigin="anonymous"></script>
+
+    <script src="/public/js/add_update_delete_product.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div class="main-container">
@@ -41,7 +43,7 @@
             <div class="popup">
                 <div class="close-btn">&times;</div>
                 <h1 class="add-product-text">Add Product</h1>
-                <form action="addProduct" method="POST" enctype="multipart/form-data">
+                <form action="/addProduct" method="POST" enctype="multipart/form-data">
                     <?php
                     if(isset($messages)){
                         foreach($messages as $message) {
@@ -57,12 +59,33 @@
                     <button type="submit">Add product</button>
                 </form>
             </div>
+            <div id="updateProductForm" class="popup">
+                <div class="close-btn">&times;</div>
+                <h1 class="add-product-text">Update Product</h1>
+                <form action="/updateProduct" method="POST" enctype="multipart/form-data">
+                    <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+                    <input name="name" type="text" placeholder="Product name">
+                    <img src="" alt="Current product image">
+                    <input name="image" type="file" placeholder="Image">
+                    <textarea name="description" placeholder="Product description" rows="5"></textarea>
+                    <input name="price" type="number" placeholder="Price">
+                    <input name="id" type="number" class="hidden-input">
+
+                    <button type="submit">Update product</button>
+                </form>
+            </div>
 
             <div class="content-container">
                 <section class="my-offer-container">
                     <?php foreach ($products as $product): ?>
-                    <div id="product1" class="product">
-                        <img src="public/uploads/products/<?= $product->getImage()?>" alt="">
+                    <div id="<?= $product->getId()?>" class="product">
+                        <img src="public/uploads/products/<?= $stallId?>/<?= $product->getImage()?>" alt="">
 
                         <div class="product-content">
                             <h3><?= $product->getName()?></h3>

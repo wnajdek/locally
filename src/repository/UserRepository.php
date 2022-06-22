@@ -138,4 +138,17 @@ class UserRepository extends Repository
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         return $data['id'];
     }
+
+    public function getLikedStallsIds(int $id) {
+
+        $statement = $this->database->connect()->prepare('
+            SELECT stall_id FROM public.user_favourite_stalls WHERE user_id = :id
+        ');
+
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

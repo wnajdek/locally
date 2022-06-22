@@ -4,6 +4,7 @@ require_once 'AppController.php';
 require_once __DIR__.'/../models/Stall.php';
 require_once __DIR__.'/../repository/StallRepository.php';
 require_once __DIR__.'/../repository/ProductRepository.php';
+require_once __DIR__.'/../repository/UserRepository.php';
 
 class StallController extends AppController {
 
@@ -15,12 +16,14 @@ class StallController extends AppController {
 
     private $stallRepository;
     private $productRepository;
+    private $userRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->stallRepository = new StallRepository();
         $this->productRepository = new ProductRepository();
+        $this->userRepository = new UserRepository();
     }
 
     public function addStall() {
@@ -56,17 +59,32 @@ class StallController extends AppController {
 
     public function market() {
         session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $this -> render('login', ['messages' => ['You have to log in first.']]);
+        }
+
         var_dump($_SESSION);
+        var_dump($this->userRepository->getLikedStallsIds($_SESSION['userId']));
         if (func_num_args() == 0 || !func_get_arg(0)) {
             $stalls = $this->stallRepository->getStalls();
+            $likedStalls = $this->userRepository->getLikedStallsIds($_SESSION['userId']);
 
-            $this -> render('market', ['stalls' => $stalls]);
+            $this -> render('market', ['stalls' => $stalls, 'likedStalls' => $likedStalls]);
         } else {
             $id = (int) func_get_arg(0);
             $stall = $this->stallRepository->getStall($id);
 
             $products = $this->productRepository->getProducts($id);
-            $this -> render('stall', ['products' => $products, 'stalls' => $stall]);
+            $buttonsEnabled = false; // enable buttons if user access his own store
+            if ($stall->getUserId() == $_SESSION['userId']) {
+                $buttonsEnabled = true;
+
+            }
+            $stallId = $stall->getId();
+
+            $this -> render('stall', ['products' => $products, 'stalls' => $stall,
+                'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId]);
         }
 
     }
@@ -92,7 +110,28 @@ class StallController extends AppController {
     }
 
     public function like(int $id) {
-        $this->stallRepository->like($id);
+        session_start();
+
+        header('Content-Type: application/json');
         http_response_code(200);
+
+        if (in_array($id, $this->userRepository->getLikedStallsIds($_SESSION['userId']))) {
+            $this->stallRepository->dislike($id, $_SESSION['userId']);
+            echo '{"isLike": false}';
+        } else {
+            $this->stallRepository->like($id, $_SESSION['userId']);
+            echo '{"isLike": true}';
+        }
+
+
+    }
+
+    public function my_products() {
+        session_start();
+        $stallId = $_SESSION['userStallId'];
+        $products = $this->productRepository->getProducts($stallId);
+
+
+        $this -> render('my_products', ['products' => $products, 'stallId' => $stallId]);
     }
 }

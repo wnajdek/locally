@@ -26,7 +26,9 @@ class StallRepository extends Repository
             $stall['views'],
             $stall['created_at'],
             $stall['stall_type_id'],
-            $stall['user_id']
+            $stall['user_id'],
+            $stall['is_public'],
+            $stall['id']
         );
     }
 
@@ -37,9 +39,6 @@ class StallRepository extends Repository
             VALUES (?, ?, ?, ?, ?, ?, ?)'
         );
 
-        $createdAt = new DateTime();
-        $createdAtString = date_format($createdAt,"Y-m-d");
-//        $user_id = 2;
         $stall_type_id = 1;
 
         $statement->execute([
@@ -96,7 +95,7 @@ class StallRepository extends Repository
         $statement->bindParam(':userId', $id, PDO::PARAM_INT);
         $statement->execute();
 
-        $stall = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $stall = $statement->fetch(PDO::FETCH_ASSOC);
 
         return new Stall(
             $stall['name'],
@@ -141,9 +140,34 @@ class StallRepository extends Repository
         return $result;
     }
 
-    public function like(int $id) {
+    public function like(int $id, int $userId) {
+        $statement = $this->database->connect()->prepare('
+            INSERT INTO public.user_favourite_stalls (user_id, stall_id)
+            VALUES (?, ?);
+        ');
+
+        $statement->execute([$userId, $id]);
+
+
         $statement = $this->database->connect()->prepare('
             UPDATE stall SET likes = likes + 1 WHERE id = :id
+        ');
+
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    public function dislike(int $id, int $userId) {
+
+        $statement = $this->database->connect()->prepare('
+            DELETE FROM public.user_favourite_stalls
+                   WHERE user_id = ? AND stall_id = ?;
+        ');
+
+        $statement->execute([$userId, $id]);
+
+        $statement = $this->database->connect()->prepare('
+            UPDATE stall SET likes = likes - 1 WHERE id = :id
         ');
 
         $statement->bindParam(':id', $id, PDO::PARAM_INT);

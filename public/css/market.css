@@ -341,12 +341,23 @@ body {
   background-color: transparent;
 }
 
-.tile .likes span[class="mif-heart"] {
+.tile .likes span.mif-heart.not-liked,  .tile .likes span.mif-heart.liked{
   font-size: 1.5em;
-  color: #FFB300;
 }
 
-.tile .likes span[class="mif-heart"]:hover {
+.liked {
+    color: #8B008B;
+}
+
+.not-liked {
+    color: #FFB300;
+}
+
+.tile .likes span.mif-heart.liked:hover {
+    cursor: pointer;
+}
+
+.tile .likes span.mif-heart.not-liked:hover {
   animation-name: arrow-movement;
   animation-iteration-count: 1000;
   animation-duration: .3s;

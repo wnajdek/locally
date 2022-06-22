@@ -17,8 +17,7 @@ class ProductRepository extends Repository
         if (!$product) {
             return null;
         }
-        $productTypeId = 1;
-        $stallId = 1;
+
         return new Product(
             $product['name'],
             $product['description'],
@@ -37,19 +36,41 @@ class ProductRepository extends Repository
             VALUES (?, ?, ?, ?, ?, ?)'
         );
 
-//        $assignedById = 1;
-        $productTypeId = 1;
-        $stall_id = 1;
+
         $statement->execute([
             $product->getName(),
             $product->getDescription(),
             $product->getPrice(),
             $product->getImage(),
-            $productTypeId,
-            $stall_id
+            $product->getProductTypeId(),
+            $product->getStallId()
         ]);
     }
 
+    public function updateProduct(Product $product): void {
+//
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.product 
+            SET name = ?,
+                description= ?,
+                price = ?,
+                image = ?,
+                product_type_id = ?,
+                stall_id = ?
+            WHERE id = ?'
+        );
+
+
+        $statement->execute([
+            $product->getName(),
+            $product->getDescription(),
+            $product->getPrice(),
+            $product->getImage(),
+            $product->getProductTypeId(),
+            $product->getStallId(),
+            $product->getId()
+        ]);
+    }
     public function getProducts(): ?array {
         $result = [];
 
@@ -68,7 +89,6 @@ class ProductRepository extends Repository
         $statement->execute();
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $productTypeId = 1;
         $stallId = 1;
         foreach ($products as $product) {
             $result[] = new Product(

@@ -369,6 +369,13 @@ body {
 
 .tile .likes span[class="mif-heart"] {
     font-size: 1.5em;
+}
+
+.liked {
+    color: #8B008B;
+}
+
+.not-liked {
     color: #FFB300;
 }
 
