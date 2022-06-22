@@ -40,7 +40,7 @@
             </header>
             <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>
 
-            <div class="popup">
+            <div id="addProductForm" class="popup">
                 <div class="close-btn">&times;</div>
                 <h1 class="add-product-text">Add Product</h1>
                 <form action="/addProduct" method="POST" enctype="multipart/form-data">
