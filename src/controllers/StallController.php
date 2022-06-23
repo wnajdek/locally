@@ -66,6 +66,9 @@ class StallController extends AppController {
 
         var_dump($_SESSION);
         var_dump($this->userRepository->getLikedStallsIds($_SESSION['userId']));
+
+
+
         if (func_num_args() == 0 || !func_get_arg(0)) {
             $stalls = $this->stallRepository->getStalls();
             $likedStalls = $this->userRepository->getLikedStallsIds($_SESSION['userId']);
@@ -82,10 +85,12 @@ class StallController extends AppController {
 
             }
             $stallId = $stall->getId();
+            $user = $this->userRepository->getUser($_SESSION['userEmail']);
 
             $this -> render('stall', ['products' => $products, 'stalls' => $stall,
                 'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId,
-                'status' => $stall->getPublic(), 'activePage' => 'Market']);
+                'status' => $stall->getPublic(), 'activePage' => 'Market',
+                'user' => $user]);
         }
 
     }
@@ -157,9 +162,11 @@ class StallController extends AppController {
         $stallId = $_SESSION['userStallId'];
         $products = $this->productRepository->getProducts($stallId);
         $stall = $this->stallRepository->getStall($stallId);
+        $user = $this->userRepository->getUser($_SESSION['userEmail']);
 
         $this -> render('stall', ['products' => $products, 'stalls' => $stall,
             'buttonsEnabled' => true, 'stallId' => $stallId,
-            'status' => $stall->getPublic(), 'activePage' => 'My products']);
+            'status' => $stall->getPublic(), 'activePage' => 'My products',
+            'user' => $user]);
     }
 }

@@ -124,11 +124,13 @@
                 </section>
                 <aside class="owner-info-container">
                     <div class="owner-info">
-                        <div class="owner-photo"></div>
-                        <h2>Tom Jones</h2>
-                        <p><strong>Email:</strong> tom.jones@gmail.com</p>
-                        <p><strong>Phone:</strong> 123 456 789</p>
-                        <p><strong>Address:</strong> Zawoja 1307</p>
+                        <div class="owner-photo">
+                            <img src="/public/uploads/users/<?= $user->getEmail()?>/<?= $user->getImage()?>" alt="Owner photo">
+                        </div>
+                        <h2><?= $user->getFirstName() . ' ' . $user->getLastName() ?></h2>
+                        <p><strong>Email:</strong> <?= $user->getEmail()?></p>
+                        <p><strong>Phone:</strong> <?= $user->getPhoneNumber()?></p>
+                        <p><strong>Address:</strong> <?= $user->getMainAddress()?></p>
                     </div>
                 </aside>
             </div>

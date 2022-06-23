@@ -290,9 +290,8 @@ button:hover {
 
 .owner-photo {
     position: absolute;
-    width: 50%;
-    height: 0;
-    padding-bottom: 50%;
+    width: 10em;
+    height: 10em;
     top: calc(-25% - 2em);
     left: calc(25%);
     background-color: red;
@@ -301,6 +300,17 @@ button:hover {
     background-size: 100%;
     border-radius: 1000px;
     border: 1px solid #707070;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+
+.owner-photo > img {
+    object-fit: cover;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
 }
 
 
