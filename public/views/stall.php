@@ -28,8 +28,8 @@
             <p class="slogan">Because the good stuff is local</p>
     
             <ul>
-                <li><a href="/market" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="/my_products"><span class="mif-home nav-icon"></span>My products</a></li>
+                <li><a href="/market" class="<?= $activePage === 'Market' ? 'active-page' : '' ?>"><span class="mif-shop nav-icon"></span>Market</a></li>
+                <li><a href="/my_products" class="<?= $activePage === 'My products' ? 'active-page' : '' ?>"><span class="mif-home nav-icon"></span>My products</a></li>
                 <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
                 <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
                 <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
@@ -38,9 +38,11 @@
             
         <main class="main">
             <header class="top-container">
-                <p class="stall-visibility-text"><?= $status ? 'Public Stall' : 'Private Stall' ?></p>
-                <input type="checkbox" id="switch" <?= $status ? 'checked' : '' ?>/><label for="switch">Toggle</label>
+                <?php if($buttonsEnabled) : ?>
+                    <p class="stall-visibility-text"><?= $status ? 'Public Stall' : 'Private Stall' ?></p>
+                    <input type="checkbox" id="switch" <?= $status ? 'checked' : '' ?>/><label for="switch">Toggle</label>
 <!--                <button onclick="location.href='/changeVisibility'"></button>-->
+                <?php endif;?>
             </header>
             <?php if($buttonsEnabled) : ?>
                 <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>

@@ -85,7 +85,7 @@ class StallController extends AppController {
 
             $this -> render('stall', ['products' => $products, 'stalls' => $stall,
                 'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId,
-                'status' => $stall->getPublic()]);
+                'status' => $stall->getPublic(), 'activePage' => 'Market']);
         }
 
     }
@@ -158,7 +158,8 @@ class StallController extends AppController {
         $products = $this->productRepository->getProducts($stallId);
         $stall = $this->stallRepository->getStall($stallId);
 
-        $this -> render('my_products', ['products' => $products, 'stallId' => $stallId,
-            'status' => $stall->getPublic()]);
+        $this -> render('stall', ['products' => $products, 'stalls' => $stall,
+            'buttonsEnabled' => true, 'stallId' => $stallId,
+            'status' => $stall->getPublic(), 'activePage' => 'My products']);
     }
 }
