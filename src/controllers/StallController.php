@@ -91,6 +91,7 @@ class StallController extends AppController {
 
 
     public function search() {
+        session_start();
         $type = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
 
         if ($type === 'application/json') {
@@ -100,12 +101,26 @@ class StallController extends AppController {
             header('Content-Type: application/json');
             http_response_code(200);
 
+            $stalls = [];
+
             if ($bodyDecoded['searchBy'] === "stall name") {
-                echo json_encode($this->stallRepository->getStallByName($bodyDecoded['searchValue']));
+                $stalls = $this->stallRepository->getStallByName($bodyDecoded['searchValue']);
             } elseif ($bodyDecoded['searchBy'] === "category") {
-                echo json_encode($this->stallRepository->getStallByCategory($bodyDecoded['searchValue']));
+                $stalls = $this->stallRepository->getStallByCategory($bodyDecoded['searchValue']);
+            } elseif ($bodyDecoded['searchBy'] === "product") {
+                $stalls = $this->stallRepository->getStallByProductName($bodyDecoded['searchValue']);
             }
 
+            $likedStalls = $this->userRepository->getLikedStallsIds($_SESSION['userId']);
+            for ($i = 0; $i < count($stalls); $i++) {
+                if (in_array($stalls[$i]['id'], $likedStalls)){
+                    $stalls[$i]['isLiked'] = true;
+                } else {
+                    $stalls[$i]['isLiked'] = false;
+                }
+            }
+
+            echo json_encode($stalls);
         }
     }
 

@@ -56,7 +56,7 @@ class StallRepository extends Repository
         $value = strtolower('%' . $value . '%');
 
         $statement = $this->database->connect()->prepare('
-            SELECT * FROM public.stall WHERE LOWER(name) LIKE :value AND is_public
+            SELECT stall.* FROM public.stall WHERE LOWER(name) LIKE :value AND is_public
         ');
 
         $statement->bindParam(':value', $value, PDO::PARAM_STR);
@@ -69,9 +69,24 @@ class StallRepository extends Repository
         $value = strtolower('%' . $value . '%');
 
         $statement = $this->database->connect()->prepare('
-            SELECT * FROM public.stall 
+            SELECT stall.* FROM public.stall 
             INNER JOIN public.stall_type ON stall.stall_type_id = stall_type.id
             WHERE LOWER(public.stall_type.type) LIKE :value AND is_public;
+        ');
+
+        $statement->bindParam(':value', $value, PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getStallByProductName(string $value) {
+        $value = strtolower('%' . $value . '%');
+
+        $statement = $this->database->connect()->prepare('
+            SELECT DISTINCT stall.* FROM public.stall 
+            INNER JOIN public.product ON stall.id = product.stall_id
+            WHERE LOWER(public.product.name) LIKE :value AND is_public;
         ');
 
         $statement->bindParam(':value', $value, PDO::PARAM_STR);
