@@ -10,8 +10,17 @@ document.querySelectorAll(".update-product").forEach(btn => btn.addEventListener
     document.querySelector("#updateProductForm > form > input[name = 'price']").value = parseFloat(this.parentElement.querySelector(".price").innerHTML.split('\$')[1]);
     document.querySelector("#updateProductForm > form > textarea[name = 'description']").value = this.parentElement.querySelector("p").innerHTML;
     document.querySelector("#updateProductForm > form > input[name = 'id']").value = this.parentElement.getAttribute('id');
-
 }));
+
+document.querySelectorAll(".delete-product").forEach(btn => btn.addEventListener("click", function () {
+    document.querySelector("#deleteConfirmForm").classList.add("active");
+    console.log(this.parentElement.getAttribute('id'));
+    document.querySelector("#deleteConfirmForm > form > input[name = 'id']").value = this.parentElement.getAttribute('id');
+}));
+
+document.querySelector(".popup #btn-cancel").addEventListener("click", function () {
+    document.querySelector("#deleteConfirmForm").classList.remove("active");
+});
 
 document.querySelectorAll(".popup .close-btn").forEach(btn => btn.addEventListener("click", function () {
     document.querySelectorAll(".popup").forEach(form => form.classList.remove("active"));

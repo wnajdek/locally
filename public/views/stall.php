@@ -83,6 +83,18 @@
                 </div>
             <?php endif;?>
 
+            <div id="deleteConfirmForm" class="popup">
+                <div class="close-btn">&times;</div>
+                <h1 class="add-product-text">Delete Product</h1>
+                <p>Are you sure you want to delete this product?</p>
+                <form action="/deleteProduct" method="POST" enctype="multipart/form-data">
+                    <input name="id" type="number" class="hidden-input">
+
+                    <button type="submit">Delete</button>
+                    <button id="btn-cancel" type="button">Cancel</button>
+
+                </form>
+            </div>
 
             <div class="content-container">
                 <section class="my-offer-container">

@@ -71,6 +71,15 @@ class ProductRepository extends Repository
             $product->getId()
         ]);
     }
+
+    public function deleteProduct(int $id): void {
+        $statement = $this->database->connect()->prepare(
+            'DELETE FROM public.product WHERE id = ?'
+        );
+
+        $statement->execute([$id]);
+    }
+
     public function getProducts(): ?array {
         $result = [];
 
