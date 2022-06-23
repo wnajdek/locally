@@ -37,8 +37,13 @@
             
         <main class="main">
             <header class="top-container">
+                <p class="stall-visibility-text"><?= $status ? 'Public Stall' : 'Private Stall' ?></p>
+                <input type="checkbox" id="switch" <?= $status ? 'checked' : '' ?>/><label for="switch">Toggle</label>
+<!--                <button onclick="location.href='/changeVisibility'"></button>-->
             </header>
             <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>
+
+
 
             <div id="addProductForm" class="popup">
                 <div class="close-btn">&times;</div>
@@ -134,5 +139,6 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="public/js/my_products.js"></script>
+    <script src="public/js/stall.js"></script>
 </body>
 </html>

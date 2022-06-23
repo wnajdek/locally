@@ -19,6 +19,7 @@
     <script src="https://kit.fontawesome.com/bcb9ab98f6.js" crossorigin="anonymous"></script>
 
     <script src="/public/js/add_update_delete_product.js" type="text/javascript" defer></script>
+    <script src="/public/js/stall.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div class="main-container">
@@ -37,6 +38,9 @@
             
         <main class="main">
             <header class="top-container">
+                <p class="stall-visibility-text"><?= $status ? 'Public Stall' : 'Private Stall' ?></p>
+                <input type="checkbox" id="switch" <?= $status ? 'checked' : '' ?>/><label for="switch">Toggle</label>
+<!--                <button onclick="location.href='/changeVisibility'"></button>-->
             </header>
             <?php if($buttonsEnabled) : ?>
                 <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>

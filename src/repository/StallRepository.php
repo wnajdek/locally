@@ -52,6 +52,34 @@ class StallRepository extends Repository
         ]);
     }
 
+    public function updateStall(Stall $stall): void {
+
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.stall 
+            SET "name" = ?,
+                likes = ?,
+                views = ?,
+                description = ?,
+                user_id = ?,
+                stall_type_id = ?,
+                image = ?,
+                is_public = ?
+            WHERE id = ?'
+        );
+
+        $statement->execute([
+            $stall->getName(),
+            $stall->getLikes(),
+            $stall->getViews(),
+            $stall->getDescription(),
+            $stall->getUserId(),
+            $stall->getStallTypeId(),
+            $stall->getImage(),
+            (int) $stall->getPublic(),
+            $stall->getId()
+        ]);
+    }
+
     public function getStallByName(string $value) {
         $value = strtolower('%' . $value . '%');
 

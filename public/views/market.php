@@ -17,7 +17,7 @@
 
     <script src="public/js/searchBox.js" type="text/javascript" defer></script>
     <script src="public/js/stats.js" type="text/javascript" defer></script>
-    <script src="public/js/stall.js" type="text/javascript" defer></script>
+    <script src="public/js/market.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div class="main-container">

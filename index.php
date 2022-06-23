@@ -12,7 +12,7 @@ Router::get('market', 'StallController');
 Router::get('favourites', 'DefaultController');
 Router::get('my_products', 'StallController');
 Router::get('contact', 'DefaultController');
-
+Router::get('changeVisibility', 'StallController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
@@ -22,6 +22,7 @@ Router::post('updateProduct', 'ProductController');
 Router::post('deleteProduct', 'ProductController');
 Router::post('search', 'StallController');
 Router::post('like', 'StallController');
+
 
 
 Router::run($path);

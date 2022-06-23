@@ -84,7 +84,8 @@ class StallController extends AppController {
             $stallId = $stall->getId();
 
             $this -> render('stall', ['products' => $products, 'stalls' => $stall,
-                'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId]);
+                'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId,
+                'status' => $stall->getPublic()]);
         }
 
     }
@@ -141,12 +142,23 @@ class StallController extends AppController {
 
     }
 
+    public function changeVisibility() {
+        session_start();
+
+        $stall = $this->stallRepository->getStall($_SESSION['userStallId']);
+        $stall->setPublic(!$stall->getPublic());
+        $this->stallRepository->updateStall($stall);
+
+        http_response_code(200);
+    }
+
     public function my_products() {
         session_start();
         $stallId = $_SESSION['userStallId'];
         $products = $this->productRepository->getProducts($stallId);
+        $stall = $this->stallRepository->getStall($stallId);
 
-
-        $this -> render('my_products', ['products' => $products, 'stallId' => $stallId]);
+        $this -> render('my_products', ['products' => $products, 'stallId' => $stallId,
+            'status' => $stall->getPublic()]);
     }
 }
