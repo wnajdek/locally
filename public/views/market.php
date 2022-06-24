@@ -22,8 +22,10 @@
 <body>
     <div class="main-container">
         <nav class="navigation">
-            <h1 class="logo">Locally</h1>
-            <p class="slogan">Because the good stuff is local</p>
+            <a id='link-logo' href="/market">
+                <h1 class="logo">Locally</h1>
+                <p class="slogan">Because the good stuff is local</p>
+            </a>
     
             <ul>
                 <li><a href="/market" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>

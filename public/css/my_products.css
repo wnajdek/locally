@@ -11,6 +11,10 @@ button:hover {
     cursor: pointer;
 }
 
+#link-logo:hover {
+    text-decoration: none;
+}
+
 .logo {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0px;
@@ -38,6 +42,7 @@ button:hover {
     flex-direction: column;
     justify-content: space-around;
     padding: 2em;
+    z-index: 1000;
 }
 
 .navigation > ul {
@@ -166,8 +171,11 @@ button:hover {
 .content-container {
     width: 80vw;
     height: 70vh;
+    max-height: 70vh;
     /* background-color: green; */
     display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
     
 }
 
@@ -491,4 +499,43 @@ label:active:after {
     position: absolute;
     bottom: 4em;
     right: 1em;
+}
+
+/* description */
+.description-container {
+    position: relative;
+    overflow-y: auto;
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+    flex-basis: 100%;
+    padding: 1rem 2rem;
+    outline: 2px solid #FFB300;
+    outline-offset: -1px;
+    border-radius: 0 0 40px 0px;
+
+    -webkit-box-shadow: -5px -5px 24px 0px rgba(66, 68, 90, 1);
+    -moz-box-shadow: -5px -5px 24px 0px rgba(66, 68, 90, 1);
+    box-shadow: -5px -5px 24px 0px rgba(66, 68, 90, 1);
+}
+
+.description-container h2 {
+    font-weight: bold;
+}
+
+
+#btn-change-image, #btn-change-text {
+    color: #FFB300;
+    background: transparent;
+    border: none;
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    padding: 0;
+    border-radius: 5px;
+}
+
+#btn-change-image .mif-file-image {
+    display: block;
+    padding: 0;
 }

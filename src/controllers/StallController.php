@@ -28,7 +28,6 @@ class StallController extends AppController {
 
     public function addStall() {
         if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
-            //TODO: change images location to avoid duplicated file name problem (add id of stall for example)
             move_uploaded_file(
                 $_FILES['image']['tmp_name'],
                 dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['image']['name']
@@ -87,7 +86,7 @@ class StallController extends AppController {
             $stallId = $stall->getId();
             $user = $this->userRepository->getUser($_SESSION['userEmail']);
 
-            $this -> render('stall', ['products' => $products, 'stalls' => $stall,
+            $this -> render('stall', ['products' => $products, 'stall' => $stall,
                 'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId,
                 'status' => $stall->getPublic(), 'activePage' => 'Market',
                 'user' => $user]);
@@ -157,6 +156,57 @@ class StallController extends AppController {
         http_response_code(200);
     }
 
+    public function changeImage() {
+        session_start();
+
+        $stallId = $_SESSION['userStallId'];
+        $products = $this->productRepository->getProducts($stallId);
+        $stall = $this->stallRepository->getStall($stallId);
+        $user = $this->userRepository->getUser($_SESSION['userEmail']);
+
+        $this->stallRepository->updateStall($stall);
+
+        if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
+            if (!file_exists(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $stall->getId())) {
+                mkdir(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $stall->getId(), 0777, true);
+            }
+            move_uploaded_file(
+                $_FILES['image']['tmp_name'],
+                dirname(__DIR__) . self::UPLOAD_DIRECTORY . $stall->getId() . '/' . $_FILES['image']['name']
+            );
+
+            $stall->setImage($_FILES['image']['name']);
+
+            $this -> render('stall', ['products' => $products, 'stall' => $stall,
+                'buttonsEnabled' => true, 'stallId' => $stallId,
+                'status' => $stall->getPublic(), 'activePage' => 'My products',
+                'user' => $user]);
+        }
+    }
+
+    public function changeText() {
+        session_start();
+        $type = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
+
+        if ($type === 'application/json') {
+            $body = trim(file_get_contents('php://input'));
+            $bodyDecoded = json_decode($body, true);
+
+            header('Content-Type: application/json');
+            http_response_code(200);
+
+            $stall = $this->stallRepository->getStall($_SESSION['userStallId']);
+
+            $stall->setName($bodyDecoded['name']);
+            $stall->setDescription($bodyDecoded['description']);
+            $this->stallRepository->updateStall($stall);
+
+            echo json_encode(['name' => $stall->getName(),
+                                'description' => $stall->getDescription()]);
+        }
+
+    }
+
     public function my_products() {
         session_start();
         $stallId = $_SESSION['userStallId'];
@@ -164,7 +214,7 @@ class StallController extends AppController {
         $stall = $this->stallRepository->getStall($stallId);
         $user = $this->userRepository->getUser($_SESSION['userEmail']);
 
-        $this -> render('stall', ['products' => $products, 'stalls' => $stall,
+        $this -> render('stall', ['products' => $products, 'stall' => $stall,
             'buttonsEnabled' => true, 'stallId' => $stallId,
             'status' => $stall->getPublic(), 'activePage' => 'My products',
             'user' => $user]);
