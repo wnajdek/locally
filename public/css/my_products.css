@@ -11,6 +11,10 @@ button:hover {
     cursor: pointer;
 }
 
+.hidden {
+    display: none;
+}
+
 #link-logo:hover {
     text-decoration: none;
 }
@@ -538,4 +542,47 @@ label:active:after {
 #btn-change-image .mif-file-image {
     display: block;
     padding: 0;
+}
+
+/* Categories styles */
+.categories-container {
+    display: flex;
+    justify-content: center;
+}
+
+.categories-container button {
+    background-color: transparent;
+    border: none;
+    border-radius: 100%;
+}
+
+.categories {
+    display: flex;
+    margin: 1em;
+}
+
+.category1 {
+    background: greenyellow;
+}
+
+.category2 {
+    background: gold;
+}
+
+.category3 {
+    background: mediumpurple;
+}
+
+.category4 {
+    background: grey;
+}
+
+div[class^='category'] {
+    border-radius: 1em;
+    font-weight: bold;
+    margin: 0 1em;
+
+}
+.category-name {
+    padding: .3rem .5rem;
 }

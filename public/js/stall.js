@@ -48,3 +48,27 @@ document.querySelector('#btn-change-text').addEventListener('click', function ()
     document.querySelector("#changeText > form > button").addEventListener('click', changeStallText);
 
 });
+
+
+
+// function updateStallCategories() {
+//     const toSend = {
+//         name: document.querySelector("#changeText > form > input[name = 'name']").value,
+//         description: document.querySelector("#changeText > form > textarea[name = 'description']").value
+//     }
+//     fetch(`/updateStallCategories`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(toSend)
+//     }).then(function (response) {
+//         return response.json();
+//     }).then(function(data) {
+//         document.querySelector('.description-container h2').innerHTML = data.name;
+//         document.querySelector('.description').innerHTML = data.description;
+//         document.querySelector("#changeText").classList.remove("active");
+//     })
+// }
+
+

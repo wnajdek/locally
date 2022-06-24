@@ -151,6 +151,21 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                     <?php endif;?>
+                    <div class="categories-container">
+                        <?php if($buttonsEnabled) :?>
+                            <button id="btn-change-categories">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        <?php endif;?>
+                        <div class="categories">
+                            <?php foreach ($stallCategories as $category): ?>
+                                <div class="category<?= $category['id'] ?>">
+                                    <div class="category-name"><?= $category['type'] ?></div>
+                                    <div class="hidden"><?= $category['id'] ?></div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
                 <section class="my-offer-container">
                     <?php foreach ($products as $product): ?>

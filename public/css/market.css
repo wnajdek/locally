@@ -460,3 +460,53 @@ body {
 .owner-icon:hover + .owner-info {
     opacity: 1;
 }
+
+/* Categories styles */
+.categories-container {
+    display: flex;
+    justify-content: center;
+}
+
+.categories-container button {
+    background-color: transparent;
+    border: none;
+    border-radius: 100%;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.category1 {
+    background: greenyellow;
+}
+
+.category2 {
+    background: gold;
+}
+
+.category3 {
+    background: mediumpurple;
+}
+
+.category4 {
+    background: grey;
+}
+
+div[class^='category'] {
+    border-radius: 1em;
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin: 0.1rem .4rem;
+
+}
+.category-name {
+    padding: .3rem .5rem;
+}
+
+.hidden {
+    display: none;
+}

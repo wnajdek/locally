@@ -24,6 +24,7 @@ Router::post('search', 'StallController');
 Router::post('like', 'StallController');
 Router::post('changeImage', 'StallController');
 Router::post('changeText', 'StallController');
+Router::post('updateStallCategories', 'StallController');
 
 
 

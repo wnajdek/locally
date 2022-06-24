@@ -87,6 +87,15 @@
                         <h3><?= $stall->getName()?></h3>
                         <p><?= $stall->getDescription()?></p>
 
+                        <div class="categories">
+                            <?php foreach ($stallCategories[$stall->getId()] as $category): ?>
+                                <div class="category<?= $category['id'] ?>">
+                                    <div class="category-name"><?= $category['type'] ?></div>
+                                    <div class="hidden"><?= $category['id'] ?></div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
                         <button class="tile-button">See offer</button>
 
                         <div class="likes">

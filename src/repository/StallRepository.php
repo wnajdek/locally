@@ -25,7 +25,6 @@ class StallRepository extends Repository
             $stall['likes'],
             $stall['views'],
             $stall['created_at'],
-            $stall['stall_type_id'],
             $stall['user_id'],
             $stall['is_public'],
             $stall['id']
@@ -35,8 +34,8 @@ class StallRepository extends Repository
     public function addStall(Stall $stall): void {
 
         $statement = $this->database->connect()->prepare(
-            'INSERT INTO public.stall ("name", likes, views, description, user_id, stall_type_id, image)
-            VALUES (?, ?, ?, ?, ?, ?, ?)'
+            'INSERT INTO public.stall ("name", likes, views, description, user_id, image)
+            VALUES (?, ?, ?, ?, ?, ?)'
         );
 
         $stall_type_id = 1;
@@ -47,7 +46,6 @@ class StallRepository extends Repository
             $stall->getViews(),
             $stall->getDescription(),
             $stall->getUserId(),
-            $stall_type_id,
             $stall->getImage()
         ]);
     }
@@ -73,7 +71,6 @@ class StallRepository extends Repository
             $stall->getViews(),
             $stall->getDescription(),
             $stall->getUserId(),
-            $stall->getStallTypeId(),
             $stall->getImage(),
             (int) $stall->getPublic(),
             $stall->getId()
@@ -84,7 +81,7 @@ class StallRepository extends Repository
         $value = strtolower('%' . $value . '%');
 
         $statement = $this->database->connect()->prepare('
-            SELECT stall.* FROM public.stall WHERE LOWER(name) LIKE :value AND is_public
+            SELECT DISTINCT stall.* FROM public.stall WHERE LOWER(name) LIKE :value AND is_public
         ');
 
         $statement->bindParam(':value', $value, PDO::PARAM_STR);
@@ -97,8 +94,9 @@ class StallRepository extends Repository
         $value = strtolower('%' . $value . '%');
 
         $statement = $this->database->connect()->prepare('
-            SELECT stall.* FROM public.stall 
-            INNER JOIN public.stall_type ON stall.stall_type_id = stall_type.id
+            SELECT DISTINCT stall.* FROM public.stall 
+            INNER JOIN public.stall_types_stall ON stall.id = stall_types_stall.stall_id
+            INNER JOIN public.stall_type ON stall_type.id = stall_types_stall.stall_type_id
             WHERE LOWER(public.stall_type.type) LIKE :value AND is_public;
         ');
 
@@ -147,7 +145,6 @@ class StallRepository extends Repository
             $stall['likes'],
             $stall['views'],
             $stall['created_at'],
-            $stall['stall_type_id'],
             $stall['user_id'],
             $stall['is_public'],
             $stall['id']
@@ -172,7 +169,6 @@ class StallRepository extends Repository
                 $stall['likes'],
                 $stall['views'],
                 $stall['created_at'],
-                $stall['stall_type_id'],
                 $stall['user_id'],
                 $stall['is_public'],
                 $stall['id']
@@ -181,6 +177,39 @@ class StallRepository extends Repository
         }
 
         return $result;
+    }
+
+    public function getCategoriesByStallId(int $stallId): ?array {
+        $statement = $this->database->connect()->prepare('
+            SELECT DISTINCT stall_type.* FROM public.stall
+            INNER JOIN public.stall_types_stall ON stall.id = stall_types_stall.stall_id
+            INNER JOIN public.stall_type ON stall_type.id = stall_types_stall.stall_type_id
+            WHERE stall_id = :id;
+        ');
+
+        $statement->execute(['id' => $stallId]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addCategory(int $categoryId, int $stallId): void {
+        $statement = $this->database->connect()->prepare('
+            SELECT * FROM public.stall_types_stall WHERE stall_id = ? AND stall_type_id = ?;
+        ');
+
+        $statement->execute([$stallId, $categoryId]);
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($result)) {
+            return;
+        }
+
+        $statement = $this->database->connect()->prepare('
+            INSERT INTO public.stall_types_stall (stall_id, stall_type_id)
+            VALUES (?, ?);
+        ');
+
+        $statement->execute([$stallId, $categoryId]);
     }
 
     public function like(int $id, int $userId) {

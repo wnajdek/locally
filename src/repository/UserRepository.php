@@ -22,18 +22,37 @@ class UserRepository extends Repository
             return null;
         }
 
-//        $statement = $this->database->connect()->prepare(
-//            "SELECT * FROM public.user_details WHERE id = :userDetailsId"
-//        );
-//
-//        $userDetailsId = $user['user_details_id'];
-//        $statement->bindParam(':userDetailsId',$userDetailsId, PDO::PARAM_INT);
-//        $statement->execute();
-//
-//        $userDetails = $statement->fetch(PDO::FETCH_ASSOC);
+        return new User(
+            $user['email'],
+            $user['password'],
+            $user['first_name'],
+            $user['last_name'],
+            $user['phone_number'],
+            $user['main_address'],
+            $user['location_details'],
+            $user['city'],
+            $user['postal_code'],
+            $user['image'],
+            $user['user_id']
+        );
+    }
 
-//        $firstName = $userDetails['first_name'];
-//        $lastName = $userDetails['last_name'];
+    public function getUserById(int $id): ?User {
+        $statement = $this->database->connect()->prepare("
+            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, role_id, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            FROM public.user
+            INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
+            INNER JOIN public.address ON user_details.address_id = address.id
+            WHERE public.user.id = :id;
+        ");
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+        $statement->execute();
+
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return null;
+        }
 
         return new User(
             $user['email'],
