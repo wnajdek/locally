@@ -142,7 +142,6 @@ class SecurityController extends AppController {
             0,
             0,
             new DateTime(),
-            1,
             $userFromDb->getId()
         );
 

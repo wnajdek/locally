@@ -43,6 +43,14 @@ button:focus, .sign-up-tile > button:focus{
     /* border: 1px solid black; */
 }
 
+#link-logo {
+    text-decoration: none;
+}
+
+#link-logo:hover {
+    text-decoration: none;
+}
+
 .logo-container {
     /* margin-bottom: auto; */
 }

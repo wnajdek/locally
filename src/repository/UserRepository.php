@@ -73,7 +73,7 @@ class UserRepository extends Repository
     {
         $statement = $this->database->connect()->prepare('
             INSERT INTO public.address (main_address, location_details, city, postal_code)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?) RETURNING id;
         ');
         $statement->execute([
             $user->getMainAddress(),
@@ -82,18 +82,23 @@ class UserRepository extends Repository
             $user->getPostalCode()
         ]);
 
+        $addressId = $statement->fetchColumn();
+
         $statement = $this->database->connect()->prepare('
             INSERT INTO public.user_details (first_name, last_name, phone_number, address_id, image)
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?) RETURNING id;
         ');
 
         $statement->execute([
             $user->getFirstName(),
             $user->getLastName(),
             $user->getPhoneNumber(),
-            $this->getAddressId($user),
+            $addressId,
             $user->getImage()
         ]);
+
+        $userDetailsId = $statement->fetchColumn();
+
 
         $statement = $this->database->connect()->prepare('
             INSERT INTO public.user (email, password, enabled, salt, created_at, user_details_id, role_id)
@@ -104,7 +109,7 @@ class UserRepository extends Repository
         $salt = 1;
         $createdAt = new DateTime();
         $createdAtString = date_format($createdAt,"Y/m/d H:i:s");
-        $roleId = 1;
+        $roleId = 1; // user
 
 
         $statement->execute([
@@ -113,50 +118,50 @@ class UserRepository extends Repository
             $enabled,
             $salt,
             $createdAtString,
-            $this->getUserDetailsId($user),
+            $userDetailsId,
             $roleId
         ]);
     }
 
-    public function getAddressId(User $user): int
-    {
-        $statement = $this->database->connect()->prepare('
-            SELECT * FROM public.address WHERE main_address = :mainAddress AND location_details = :locationDetails AND city = :city AND postal_code = :postalCode
-        ');
-
-        $mainAddress = $user->getMainAddress();
-        $locationDetails = $user->getLocationDetails();
-        $city = $user->getCity();
-        $postalCode = $user->getPostalCode();
-        $statement->bindParam(':mainAddress', $mainAddress, PDO::PARAM_STR);
-        $statement->bindParam(':locationDetails', $locationDetails, PDO::PARAM_STR);
-        $statement->bindParam(':city', $city, PDO::PARAM_STR);
-        $statement->bindParam(':postalCode', $postalCode, PDO::PARAM_STR);
-        $statement->execute();
-
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        return $data['id'];
-    }
-
-    public function getUserDetailsId(User $user): int
-    {
-        $statement = $this->database->connect()->prepare('
-            SELECT * FROM public.user_details WHERE first_name = :firstName AND last_name = :lastName AND phone_number = :phoneNumber AND image = :image
-        ');
-
-        $firstName = $user->getFirstName();
-        $lastName = $user->getLastName();
-        $phoneNumber = $user->getPhoneNumber();
-        $image = $user->getImage();
-        $statement->bindParam(':firstName', $firstName, PDO::PARAM_STR);
-        $statement->bindParam(':lastName', $lastName, PDO::PARAM_STR);
-        $statement->bindParam(':phoneNumber', $phoneNumber, PDO::PARAM_STR);
-        $statement->bindParam(':image', $image, PDO::PARAM_STR);
-        $statement->execute();
-
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        return $data['id'];
-    }
+//    public function getAddressId(User $user): ?int
+//    {
+//        $statement = $this->database->connect()->prepare('
+//            SELECT * FROM public.address WHERE main_address = :mainAddress AND location_details = :locationDetails AND city = :city AND postal_code = :postalCode
+//        ');
+//
+//        $mainAddress = $user->getMainAddress();
+//        $locationDetails = $user->getLocationDetails();
+//        $city = $user->getCity();
+//        $postalCode = $user->getPostalCode();
+//        $statement->bindParam(':mainAddress', $mainAddress, PDO::PARAM_STR);
+//        $statement->bindParam(':locationDetails', $locationDetails, PDO::PARAM_STR);
+//        $statement->bindParam(':city', $city, PDO::PARAM_STR);
+//        $statement->bindParam(':postalCode', $postalCode, PDO::PARAM_STR);
+//        $statement->execute();
+//
+//        $data = $statement->fetch(PDO::FETCH_ASSOC);
+//        return $data['id'];
+//    }
+//
+//    public function getUserDetailsId(User $user): ?int
+//    {
+//        $statement = $this->database->connect()->prepare('
+//            SELECT * FROM public.user_details WHERE first_name = :firstName AND last_name = :lastName AND phone_number = :phoneNumber AND image = :image
+//        ');
+//
+//        $firstName = $user->getFirstName();
+//        $lastName = $user->getLastName();
+//        $phoneNumber = $user->getPhoneNumber();
+//        $image = $user->getImage();
+//        $statement->bindParam(':firstName', $firstName, PDO::PARAM_STR);
+//        $statement->bindParam(':lastName', $lastName, PDO::PARAM_STR);
+//        $statement->bindParam(':phoneNumber', $phoneNumber, PDO::PARAM_STR);
+//        $statement->bindParam(':image', $image, PDO::PARAM_STR);
+//        $statement->execute();
+//
+//        $data = $statement->fetch(PDO::FETCH_ASSOC);
+//        return $data['id'];
+//    }
 
     public function getLikedStallsIds(int $id) {
 

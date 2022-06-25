@@ -130,6 +130,7 @@ class StallController extends AppController {
                 } else {
                     $stalls[$i]['isLiked'] = false;
                 }
+                $stalls[$i]['categories'] = $this->stallRepository->getCategoriesByStallId($stalls[$i]['id']);
             }
 
             echo json_encode($stalls);

@@ -137,6 +137,10 @@
                 <h3>name</h3>
                 <p>description</p>
 
+                <div class="categories">
+
+                </div>
+
                 <button class="tile-button">See offer</button>
 
                 <div class="likes">

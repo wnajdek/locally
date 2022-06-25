@@ -25,6 +25,10 @@ body {
     
 }
 
+#link-logo:hover {
+    text-decoration: none;
+}
+
 .navigation {
     width: 20vw;
     height: 100vh;

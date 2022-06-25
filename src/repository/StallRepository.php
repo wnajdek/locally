@@ -38,8 +38,6 @@ class StallRepository extends Repository
             VALUES (?, ?, ?, ?, ?, ?)'
         );
 
-        $stall_type_id = 1;
-
         $statement->execute([
             $stall->getName(),
             $stall->getLikes(),
@@ -59,7 +57,6 @@ class StallRepository extends Repository
                 views = ?,
                 description = ?,
                 user_id = ?,
-                stall_type_id = ?,
                 image = ?,
                 is_public = ?
             WHERE id = ?'

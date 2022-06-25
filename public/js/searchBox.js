@@ -39,6 +39,7 @@ function createStallTile(stall) {
     let clonedTemplate = template.content.cloneNode(true);
 
     let tile = clonedTemplate.querySelector("#market1");
+    let categories = clonedTemplate.querySelector(".categories")
     let heart = clonedTemplate.querySelector('.mif-heart');
     let name = clonedTemplate.querySelector("h3");
     let description = clonedTemplate.querySelector("p");
@@ -51,6 +52,24 @@ function createStallTile(stall) {
     description.innerHTML = stall.description;
     likes.innerHTML = stall.likes;
     image.setAttribute("src", "/public/uploads/stalls/" + stall.image);
+
+    stall.categories.forEach(category => {
+        let categoryDiv = document.createElement("div");
+        categoryDiv.classList.add("category" + category.id);
+        let categoryNameDiv = document.createElement("div");
+        categoryNameDiv.classList.add("category-name");
+        categoryNameDiv.innerHTML = category.type;
+
+        let categoryIdHiddenDiv = document.createElement("div");
+        categoryIdHiddenDiv.classList.add("hidden");
+        categoryIdHiddenDiv.innerHTML = category.id;
+
+        categoryDiv.appendChild(categoryNameDiv);
+        categoryDiv.appendChild(categoryIdHiddenDiv);
+
+        categories.appendChild(categoryDiv);
+    })
+
 
     offersContainer.appendChild(clonedTemplate);
 
