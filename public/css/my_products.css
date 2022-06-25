@@ -453,13 +453,13 @@ form > button {
 
 /* Toggle switch responsible for changing Stall visibility */
 
-input[type=checkbox]{
+.top-container input[type=checkbox]{
     height: 0;
     width: 0;
     visibility: hidden;
 }
 
-label {
+.top-container label {
     cursor: pointer;
     text-indent: -9999px;
     width: 50px;
@@ -472,7 +472,7 @@ label {
     right: 2em;
 }
 
-label:after {
+.top-container label:after {
     content: '';
     position: absolute;
     top: 2px;
@@ -484,16 +484,16 @@ label:after {
     transition: 0.3s;
 }
 
-input:checked + label {
+.top-container input:checked + label {
     background: #bada55;
 }
 
-input:checked + label:after {
+.top-container input:checked + label:after {
     left: calc(100% - 5px);
     transform: translateX(-100%);
 }
 
-label:active:after {
+.top-container label:active:after {
     width: 30px;
 }
 

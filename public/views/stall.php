@@ -138,6 +138,24 @@
                         <button type="button">Change</button>
                     </form>
                 </div>
+
+                <div id="changeCategories" class="popup">
+                    <div class="close-btn">&times;</div>
+                    <h1 class="add-product-text">Change categories</h1>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <?php
+                        if(isset($messages)){
+                            foreach($messages as $message) {
+                                echo $message;
+                            }
+                        }
+                        ?>
+                        <?php foreach ($categories as $category): ?>
+                            <label><input type="checkbox" name="categories[]" value="<?= $category['id']?>"><?= $category['type']?></label>
+                        <?php endforeach; ?>
+                        <button type="button">Save</button>
+                    </form>
+                </div>
             <?php endif;?>
 
 

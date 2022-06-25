@@ -176,6 +176,16 @@ class StallRepository extends Repository
         return $result;
     }
 
+    public function getCategories(): ?array {
+        $statement = $this->database->connect()->prepare('
+            SELECT stall_type.* FROM public.stall_type;
+        ');
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getCategoriesByStallId(int $stallId): ?array {
         $statement = $this->database->connect()->prepare('
             SELECT DISTINCT stall_type.* FROM public.stall
@@ -186,6 +196,27 @@ class StallRepository extends Repository
 
         $statement->execute(['id' => $stallId]);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function removeCategory(int $categoryId, int $stallId): void {
+        $statement = $this->database->connect()->prepare('
+            SELECT * FROM public.stall_types_stall WHERE stall_id = ? AND stall_type_id = ?;
+        ');
+
+        $statement->execute([$stallId, $categoryId]);
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($result)) {
+            return;
+        }
+
+        $statement = $this->database->connect()->prepare('
+            DELETE FROM public.stall_types_stall
+            WHERE stall_id = ? AND stall_type_id = ?;
+        ');
+
+        $statement->execute([$stallId, $categoryId]);
     }
 
     public function addCategory(int $categoryId, int $stallId): void {

@@ -92,11 +92,13 @@ class StallController extends AppController {
             $stallId = $stall->getId();
             $user = $this->userRepository->getUserById($stall->getUserId());
             $stallCategories = $this->stallRepository->getCategoriesByStallId($stallId);
+            $categories = $this->stallRepository->getCategories();
 
             $this -> render('stall', ['products' => $products, 'stall' => $stall,
                 'buttonsEnabled' => $buttonsEnabled, 'stallId' => $stallId,
                 'status' => $stall->getPublic(), 'activePage' => 'Market',
-                'user' => $user, 'stallCategories' => $stallCategories]);
+                'user' => $user, 'stallCategories' => $stallCategories,
+                'categories' => $categories]);
         }
 
     }
@@ -172,7 +174,7 @@ class StallController extends AppController {
         $stall = $this->stallRepository->getStall($stallId);
         $stallCategories = $this->stallRepository->getCategoriesByStallId($stallId);
         $user = $this->userRepository->getUser($_SESSION['userEmail']);
-
+        $categories = $this->stallRepository->getCategories();
         $this->stallRepository->updateStall($stall);
 
         if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
@@ -189,7 +191,8 @@ class StallController extends AppController {
             $this -> render('stall', ['products' => $products, 'stall' => $stall,
                 'buttonsEnabled' => true, 'stallId' => $stallId,
                 'status' => $stall->getPublic(), 'activePage' => 'My products',
-                'user' => $user, 'stallCategories' => $stallCategories]);
+                'user' => $user, 'stallCategories' => $stallCategories,
+                'categories' => $categories]);
         }
     }
 
@@ -203,8 +206,13 @@ class StallController extends AppController {
 
             header('Content-Type: application/json');
             http_response_code(200);
-            foreach ($bodyDecoded['categories'] as $category) {
-                $this->stallRepository->addCategory($category['id'], $_SESSION['userStallId']);
+            $categories = $this->stallRepository->getCategories();
+            foreach ($categories as $category) {
+                $this->stallRepository->removeCategory($category['id'], $_SESSION['userStallId']);
+            }
+
+            foreach ($bodyDecoded['categories'] as $categoryId) {
+                $this->stallRepository->addCategory($categoryId, $_SESSION['userStallId']);
             }
 
             echo json_encode($this->stallRepository->getCategoriesByStallId($_SESSION['userStallId']));
@@ -241,10 +249,12 @@ class StallController extends AppController {
         $stall = $this->stallRepository->getStall($stallId);
         $user = $this->userRepository->getUser($_SESSION['userEmail']);
         $stallCategories = $this->stallRepository->getCategoriesByStallId($stallId);
+        $categories = $this->stallRepository->getCategories();
 
         $this -> render('stall', ['products' => $products, 'stall' => $stall,
             'buttonsEnabled' => true, 'stallId' => $stallId,
             'status' => $stall->getPublic(), 'activePage' => 'My products',
-            'user' => $user, 'stallCategories' => $stallCategories]);
+            'user' => $user, 'stallCategories' => $stallCategories,
+            'categories' => $categories]);
     }
 }
