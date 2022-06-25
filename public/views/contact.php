@@ -36,9 +36,9 @@
         <main class="main">
             <div class="contact-container">
                 <h1>Contact Us</h1>
-                <form action="">
-                    <input type="email" placeholder="Email">
-                    <input type="text" placeholder="Topic">
+                <form action="/mail" method="post">
+                    <input name="email" type="email" value="<?= $email?>" readonly="readonly">
+                    <input name="topic" type="text" placeholder="Topic">
                     <textarea name="message" cols="30" rows="15" placeholder="Type your message here"></textarea>
                     
                     <button>Send</button>

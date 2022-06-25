@@ -139,6 +139,10 @@ form > input {
     border-radius: 3vmin;
 }
 
+form > input[readonly="readonly"] {
+    background-color: #0002;
+}
+
 form > textarea {
     width: 90% !important;
     background: white;

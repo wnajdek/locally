@@ -11,7 +11,7 @@ Router::get('', 'DefaultController');
 Router::get('market', 'StallController');
 Router::get('favourites', 'DefaultController');
 Router::get('my_products', 'StallController');
-Router::get('contact', 'DefaultController');
+Router::get('contact', 'MailController');
 Router::get('changeVisibility', 'StallController');
 
 Router::post('login', 'SecurityController');
@@ -25,6 +25,8 @@ Router::post('like', 'StallController');
 Router::post('changeImage', 'StallController');
 Router::post('changeText', 'StallController');
 Router::post('updateStallCategories', 'StallController');
+Router::get('mail', 'MailController');
+
 
 
 

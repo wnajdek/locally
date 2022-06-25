@@ -18,9 +18,7 @@ class DefaultController extends AppController {
 
 
 
-    public function contact() {
-        $this -> render('contact');
-    }
+
 
 //    public function login() {
 //        $this -> render('login');

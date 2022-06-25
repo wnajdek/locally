@@ -152,7 +152,7 @@ class StallRepository extends Repository
         $result = [];
 
         $statement = $this->database->connect()->prepare('
-            SELECT * FROM public.stall WHERE is_public
+            SELECT * FROM public_stalls;
         ');
 
         $statement->execute();
