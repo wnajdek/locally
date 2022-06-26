@@ -32,6 +32,21 @@ function updateProduct() {
     }).then(updateProductAfterFetch)
 }
 
+function deleteProduct() {
+
+    const toSend = new FormData();
+    toSend.append('id', parseInt(document.querySelector("#deleteConfirmForm > form > input[name = 'id']").value));
+
+
+    fetch(`/deleteProduct`, {
+        method: "POST",
+        body: toSend
+    }).then(function (response) {
+        return response.json();
+    }).then(deleteProductAfterFetch)
+}
+
+
 document.querySelector("#show-add-product-form").addEventListener("click", function () {
     document.querySelector("#addProductForm").classList.add("active");
     document.querySelector("#addProductForm > form > button").addEventListener('click', addProduct);
@@ -59,6 +74,7 @@ function onDeleteButtonClick(btn) {
         document.querySelector("#deleteConfirmForm").classList.add("active");
         console.log(this.parentElement.getAttribute('id'));
         document.querySelector("#deleteConfirmForm > form > input[name = 'id']").value = this.parentElement.getAttribute('id');
+        document.querySelector("#deleteConfirmForm > form > button").addEventListener('click', deleteProduct);
     });
 }
 
@@ -114,4 +130,9 @@ function updateProductAfterFetch(product) {
     productPrice.innerHTML = "Price: $" + product.price;
 
     document.querySelector("#updateProductForm").classList.remove("active");
+}
+
+function deleteProductAfterFetch(product) {
+    document.getElementById(product.id).remove()
+    document.querySelector("#deleteConfirmForm").classList.remove("active");
 }
