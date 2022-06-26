@@ -12,10 +12,11 @@ class User {
     private ?string $city;
     private ?string $postalCode;
     private ?string $image;
+    private string $role;
     private ?DateTime $createdAt;
 
 
-    public function __construct(string $email, string $password, string $firstName, string $lastName,
+    public function __construct(string $email, string $password, string $firstName, string $lastName, string $role,
                                 string $phoneNumber = null, string $mainAddress = null, string $locationDetails = null,
                                 string $city = null, string $postalCode = null, string $image = null, int $id = null,
                                 DateTime $createdAt = null)
@@ -25,6 +26,7 @@ class User {
         $this->password = $password;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->role = $role;
         $this->phoneNumber = $phoneNumber;
         $this->mainAddress = $mainAddress;
         $this->locationDetails = $locationDetails;
@@ -154,6 +156,17 @@ class User {
     {
         $this->createdAt = $createdAt;
     }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
 
 
 

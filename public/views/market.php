@@ -31,6 +31,7 @@
                 <li><a href="/market" class="active-page"><span class="mif-shop nav-icon"></span>Market</a></li>
                 <li><a href="/my_products"><span class="mif-home nav-icon"></span>My products</a></li>
                 <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
+                <li><a href="/user"><span class="mif-user nav-icon"></span>User</a></li>
                 <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
                 <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
             </ul>

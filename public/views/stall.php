@@ -34,6 +34,7 @@
                 <li><a href="/market" class="<?= $activePage === 'Market' ? 'active-page' : '' ?>"><span class="mif-shop nav-icon"></span>Market</a></li>
                 <li><a href="/my_products" class="<?= $activePage === 'My products' ? 'active-page' : '' ?>"><span class="mif-home nav-icon"></span>My products</a></li>
                 <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
+                <li><a href="/user"><span class="mif-user nav-icon"></span>User</a></li>
                 <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
                 <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
             </ul>
@@ -67,7 +68,7 @@
                         <textarea name="description" placeholder="Product description" rows="5"></textarea>
                         <input name="price" type="number" placeholder="Price">
 
-                        <button type="submit">Add product</button>
+                        <button type="button">Add product</button>
                     </form>
                 </div>
 
@@ -88,7 +89,7 @@
                         <textarea name="description" placeholder="Product description" rows="5"></textarea>
                         <input name="price" type="number" placeholder="Price">
                         <input name="id" type="number" class="hidden-input">
-                        <button type="submit">Update product</button>
+                        <button type="button">Update product</button>
                     </form>
                 </div>
 
@@ -99,7 +100,7 @@
                     <form action="/deleteProduct" method="POST" enctype="multipart/form-data">
                         <input name="id" type="number" class="hidden-input">
 
-                        <button type="submit">Delete</button>
+                        <button type="button">Delete</button>
                         <button id="btn-cancel" type="button">Cancel</button>
 
                     </form>
@@ -118,7 +119,7 @@
                         ?>
                         <input name="image" type="file" placeholder="Image">
                         <input name="id" type="number" class="hidden-input">
-                        <button type="submit">Change image</button>
+                        <button type="button">Change image</button>
                     </form>
                 </div>
 
@@ -185,6 +186,7 @@
                         </div>
                     </div>
                 </div>
+
                 <section class="my-offer-container">
                     <?php foreach ($products as $product): ?>
                     <div id="<?= $product->getId()?>" class="product">
@@ -204,6 +206,7 @@
                     </div>
                     <?php endforeach; ?>
                 </section>
+
                 <aside class="owner-info-container">
                     <div class="owner-info">
                         <div class="owner-photo">
@@ -229,4 +232,22 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <!--    <script src="/public/js/my_products.js"></script>-->
 </body>
+    <template id="product-template">
+        <div id="product" class="product">
+            <img src="" alt="">
+
+            <div class="product-content">
+                <h3></h3>
+                <p class="desc"></p>
+
+                <p id="price" class="price"></p>
+            </div>
+
+        </div>
+    </template>
+
+    <template id="product-buttons-template">
+        <button class="delete-product"><i class="fa-solid fa-trash"></i></button>
+        <button class="update-product"><i class="fa-solid fa-pencil"></i></button>
+    </template>
 </html>

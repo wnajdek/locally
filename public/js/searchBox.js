@@ -34,6 +34,11 @@ function loadStalls(stalls) {
 }
 
 function createStallTile(stall) {
+    console.log(stall.isLiked)
+    if (window.location.href.includes("favourites") && !stall.isLiked) {
+        return;
+    }
+
     let template = document.querySelector("#stall-template");
 
     let clonedTemplate = template.content.cloneNode(true);
@@ -51,7 +56,7 @@ function createStallTile(stall) {
     name.innerHTML = stall.name;
     description.innerHTML = stall.description;
     likes.innerHTML = stall.likes;
-    image.setAttribute("src", "/public/uploads/stalls/" + stall.image);
+    image.setAttribute("src", "/public/uploads/stalls/" + stall.id + '/' + stall.image);
 
     stall.categories.forEach(category => {
         let categoryDiv = document.createElement("div");

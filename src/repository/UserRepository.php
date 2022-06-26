@@ -7,10 +7,11 @@ class UserRepository extends Repository
 {
     public function getUser(string $email): ?User {
         $statement = $this->database->connect()->prepare("
-            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, role_id, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
             FROM public.user
             INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
             INNER JOIN public.address ON user_details.address_id = address.id
+            INNER JOIN public.role ON public.user.role_id = public.role.id
             WHERE email LIKE :email;
         ");
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
@@ -27,6 +28,7 @@ class UserRepository extends Repository
             $user['password'],
             $user['first_name'],
             $user['last_name'],
+            $user['role'],
             $user['phone_number'],
             $user['main_address'],
             $user['location_details'],
@@ -39,10 +41,11 @@ class UserRepository extends Repository
 
     public function getUserById(int $id): ?User {
         $statement = $this->database->connect()->prepare("
-            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, role_id, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
             FROM public.user
             INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
             INNER JOIN public.address ON user_details.address_id = address.id
+            INNER JOIN public.role ON public.user.role_id = public.role.id 
             WHERE public.user.id = :id;
         ");
         $statement->bindParam(':id', $id, PDO::PARAM_STR);
@@ -59,6 +62,7 @@ class UserRepository extends Repository
             $user['password'],
             $user['first_name'],
             $user['last_name'],
+            $user['role'],
             $user['phone_number'],
             $user['main_address'],
             $user['location_details'],
@@ -122,6 +126,63 @@ class UserRepository extends Repository
             $roleId
         ]);
     }
+
+    public function updateUser(User $user) {
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.user 
+            SET password = ?,
+                enabled = ?,
+                salt = ?
+            WHERE id = ?
+            returning user_details_id'
+        );
+
+        $statement->execute([
+            $user->getPassword(),
+            true,
+            1,
+            $user->getId()
+        ]);
+
+        $userDetailsId = $statement->fetchColumn();
+
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.user_details
+            SET first_name = ?,
+                last_name = ?,
+                phone_number = ?
+            WHERE public.user_details.id = ?
+                  returning address_id'
+        );
+
+        $statement->execute([
+            $user->getFirstName(),
+            $user->getLastName(),
+            $user->getPhoneNumber(),
+            $userDetailsId
+        ]);
+
+        $addressId = $statement->fetchColumn();
+
+        $statement = $this->database->connect()->prepare(
+            'UPDATE public.address
+            SET main_address = ?,
+                location_details = ?,
+                city = ?,
+                postal_code = ?
+            WHERE public.address.id = ?'
+        );
+
+        $statement->execute([
+            $user->getMainAddress(),
+            $user->getLocationDetails(),
+            $user->getCity(),
+            $user->getPostalCode(),
+            $addressId
+        ]);
+
+    }
+
 
 //    public function getAddressId(User $user): ?int
 //    {

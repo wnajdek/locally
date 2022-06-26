@@ -20,6 +20,41 @@ class ProductController extends AppController {
         $this->productRepository = new ProductRepository();
     }
 
+//    public function addProduct() {
+//        session_start();
+//        if (!isset($_SESSION['userStallId'])) {
+//            $this->render('login', ['messages' => ['You have to log in first.']]);
+//        }
+//
+//        $stallId = $_SESSION['userStallId'];
+//
+//        if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
+//            if (!file_exists(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'])) {
+//                mkdir(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'], 0777, true);
+//            }
+//            move_uploaded_file(
+//                $_FILES['image']['tmp_name'],
+//                dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'] . '/' . $_FILES['image']['name']
+//            );
+//
+//
+//            var_dump($_SESSION['userStallId']);
+//            $product = new Product(
+//                $_POST['name'],
+//                $_POST['description'],
+//                $_POST['price'],
+//                $_FILES['image']['name'],
+//                1,
+//                $stallId
+//            );
+//            $this->productRepository->addProduct($product);
+//        }
+//
+//        return $this->render("my_products", ['messages' => $this->messages,
+//            'products' => $this->productRepository->getProducts($stallId),
+//            'stallId' => $stallId]);
+//    }
+
     public function addProduct() {
         session_start();
         if (!isset($_SESSION['userStallId'])) {
@@ -38,7 +73,8 @@ class ProductController extends AppController {
             );
 
 
-            var_dump($_SESSION['userStallId']);
+            header('Content-Type: application/json');
+            http_response_code(200);
             $product = new Product(
                 $_POST['name'],
                 $_POST['description'],
@@ -47,13 +83,75 @@ class ProductController extends AppController {
                 1,
                 $stallId
             );
-            $this->productRepository->addProduct($product);
-        }
+            $productId = $this->productRepository->addProduct($product);
+//            var_dump($productId);
 
-        return $this->render("my_products", ['messages' => $this->messages,
-            'products' => $this->productRepository->getProducts($stallId),
-            'stallId' => $stallId]);
+
+            $productFromDb = $this->productRepository->getProduct($productId);
+//            var_dump($productFromDb);
+//            echo mb_detect_encoding($productFromDb->getName());
+//            echo mb_detect_encoding($productFromDb->getName());
+            echo json_encode([
+                'name'=>$productFromDb->getName(),
+                'image'=>$productFromDb->getImage(),
+                'description'=>$productFromDb->getDescription(),
+                'price'=>$productFromDb->getPrice(),
+                'id'=>$productFromDb->getId(),
+                'stallId'=>$productFromDb->getStallId(),
+                'productTypeId'=>$productFromDb->getProductTypeId()
+            ]);
+        }
     }
+
+    public function utf8ize($d) {
+        if (is_array($d)) {
+            foreach ($d as $k => $v) {
+                $d[$k] = $this->utf8ize($v);
+            }
+        } else if (is_string ($d)) {
+            return utf8_encode($d);
+        }
+        return $d;
+    }
+
+
+//    public function addProduct() {
+//        session_start();
+//        $type = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
+//
+//        if ($type === 'application/json') {
+//            $body = trim(file_get_contents('php://input'));
+//            $bodyDecoded = json_decode($body, true);
+//
+//            header('Content-Type: application/json');
+//            http_response_code(200);
+//            if (is_uploaded_file($bodyDecoded['image']['name']) && $this->validate($bodyDecoded['image'])) {
+//                if (!file_exists(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'])) {
+//                    mkdir(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'], 0777, true);
+//                }
+//                move_uploaded_file(
+//                    $bodyDecoded['image']['name'],
+//                    dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'] . '/' . $bodyDecoded['image']['name']
+//                );
+//
+//
+//                var_dump($_SESSION['userStallId']);
+//                $product = new Product(
+//                    $bodyDecoded['name'],
+//                    $bodyDecoded['description'],
+//                    $bodyDecoded['price'],
+//                    $bodyDecoded['image']['name'],
+//                    1,
+//                    $_SESSION['userStallId']
+//                );
+//                $productId = $this->productRepository->addProduct($product);
+//
+//                echo json_encode($this->productRepository->getProduct($productId));
+//            }
+//
+//
+//        }
+//    }
 
     public function updateProduct() {
         session_start();

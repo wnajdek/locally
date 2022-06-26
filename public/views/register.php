@@ -32,20 +32,20 @@
                 ?>
             </div>
             <form action="/register" method="POST" enctype="multipart/form-data">
-                <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
-                <input type="password" name="passwordRepeat" placeholder="Repeat your password">
-                <input type="text" name="firstName" placeholder="First name">
-                <input type="text" name="lastName" placeholder="Last name">
-                <input type="text" name="phone" placeholder="Phone number">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="passwordRepeat" placeholder="Repeat your password" required>
+                <input type="text" name="firstName" placeholder="First name" required>
+                <input type="text" name="lastName" placeholder="Last name" required>
+                <input type="text" name="phone" placeholder="Phone number" required>
                 <h3>Address</h3>
-                <input type="text" name="mainAddressLine" placeholder="Address line 1">
+                <input type="text" name="mainAddressLine" placeholder="Address line 1" required>
                 <input type="text" name="locationDetails" placeholder="Address line 2">
-                <input type="text" name="city" placeholder="City">
-                <input type="text" name="postalCode" placeholder="Postal code">
+                <input type="text" name="city" placeholder="City"required>
+                <input type="text" name="postalCode" placeholder="Postal code" required>
 
                 <h3>Load your picture</h3>
-                <input type="file" name="image" placeholder="Image">
+                <input type="file" name="image" placeholder="Image" required>
 
                 <button type="submit">Sign up</button>
             </form>

@@ -29,13 +29,12 @@ class ProductRepository extends Repository
         );
     }
 
-    public function addProduct(Product $product): void {
+    public function addProduct(Product $product): int {
 //
         $statement = $this->database->connect()->prepare(
             'INSERT INTO public.product (name, description, price, image, product_type_id, stall_id)
-            VALUES (?, ?, ?, ?, ?, ?)'
+            VALUES (?, ?, ?, ?, ?, ?) returning id'
         );
-
 
         $statement->execute([
             $product->getName(),
@@ -45,6 +44,8 @@ class ProductRepository extends Repository
             $product->getProductTypeId(),
             $product->getStallId()
         ]);
+
+        return $statement->fetchColumn();
     }
 
     public function updateProduct(Product $product): void {

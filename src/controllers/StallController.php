@@ -257,4 +257,30 @@ class StallController extends AppController {
             'user' => $user, 'stallCategories' => $stallCategories,
             'categories' => $categories]);
     }
+
+    public function favourites() {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $this -> render('login', ['messages' => ['You have to log in first.']]);
+        }
+
+        $stalls = $this->stallRepository->getStalls();
+        $likedStalls = $this->userRepository->getLikedStallsIds($_SESSION['userId']);
+        $stallCategories = [];
+
+        foreach ($stalls as $key => $stall) {
+            if (!in_array($stall->getId(), $likedStalls)) {
+                unset($stalls[$key]);
+            } else {
+                $stallCategories[$stall->getId()] = $this->stallRepository->getCategoriesByStallId($stall->getId());
+            }
+
+        }
+
+
+        $this -> render('favourites', ['stalls' => $stalls, 'likedStalls' => $likedStalls,
+            'stallCategories' => $stallCategories]);
+
+    }
 }

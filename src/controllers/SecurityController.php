@@ -21,6 +21,17 @@ class SecurityController extends AppController {
         $this->stallRepository = new StallRepository();
     }
 
+    public function index() {
+        session_start();
+
+        if (isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/market");
+        }
+
+        $this -> render('login');
+    }
+
     public function login() {
 
         session_start();
@@ -50,10 +61,19 @@ class SecurityController extends AppController {
             return $this->render('login', ['messages' => ['Wrong password!']]);
         }
 
+        $_SESSION['isAdmin'] = $user->getRole() == 'ADMIN';
+//        if (!$_SESSION['isAdmin']) {
+//            $stall = $this->stallRepository->getStallByUserId($user->getId());
+//            $_SESSION['userStallId'] = $stall->getId();
+//        } else {
+//            $_SESSION['userStallId'] = 0;
+//        }
         $stall = $this->stallRepository->getStallByUserId($user->getId());
+        $_SESSION['userStallId'] = $stall->getId();
         $_SESSION['userId'] = $user->getId();
         $_SESSION['userEmail'] = $user->getEmail();
-        $_SESSION['userStallId'] = $stall->getId();
+
+
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/market");
     }
@@ -63,6 +83,7 @@ class SecurityController extends AppController {
         unset($_SESSION['userId']);
         unset($_SESSION['userEmail']);
         unset($_SESSION['userStallId']);
+        unset($_SESSION['isAdmin']);
         session_destroy();
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/login");
@@ -73,6 +94,12 @@ class SecurityController extends AppController {
     public function register()
     {
         session_start();
+
+        if (isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/market");
+        }
+
         if (!$this->isPost()) {
             return $this->render('register');
         }
@@ -118,7 +145,8 @@ class SecurityController extends AppController {
             $email,
             password_hash($password, PASSWORD_BCRYPT),
             $firstName,
-            $lastName
+            $lastName,
+            'USER'
         );
 
         $user->setPhoneNumber($phoneNumber);
@@ -148,6 +176,83 @@ class SecurityController extends AppController {
         $this->stallRepository->addStall($stall);
 
         return $this->render('login', ['messages' => ['You\'re a part of Locally! Now You can log in.']]);
+    }
+
+    public function user() {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        }
+
+        $user = $this->userRepository->getUser($_SESSION['userEmail']);
+
+        return $this->render('user', ['user' => $user]);
+    }
+
+    public function updateUserData() {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        }
+
+        $user = $this->userRepository->getUser($_SESSION["userEmail"]);
+        $user->setFirstName($_POST['firstName']);
+        $user->setLastName($_POST['lastName']);
+        $user->setPhoneNumber($_POST['phoneNumber']);
+        $user->setMainAddress($_POST['mainAddress']);
+        $user->setLocationDetails($_POST['locationDetails']);
+        $user->setCity($_POST['city']);
+        $user->setPostalCode($_POST['postalCode']);
+
+        if (is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
+            if (!file_exists(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $email)) {
+                mkdir(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $email, 0777, true);
+            }
+            move_uploaded_file(
+                $_FILES['image']['tmp_name'],
+                dirname(__DIR__) . self::UPLOAD_DIRECTORY . $email . '/' . $_FILES['image']['name']
+            );
+
+            $user->setImage($_FILES['image']['name']);
+        }
+
+        $this->userRepository->updateUser($user);
+
+
+        return $this->render('user', ['messages' => ['User successfully updated'], 'user' => $user]);
+    }
+
+    public function changePassword() {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        }
+
+        $currentPassword = $_POST['passwordOld'];
+        $newPassword = $_POST['password'];
+        $confirmedPassword = $_POST['passwordRepeat'];
+
+        $user = $this->userRepository->getUser($_SESSION['userEmail']);
+
+        if (!password_verify($currentPassword, $user->getPassword())) {
+            return $this->render('user', ['messages' => ['Wrong current password!'], 'user' => $user]);
+        }
+
+        if ($newPassword !== $confirmedPassword) {
+            return $this->render('user', ['messages' => ['New password fields values must be the same.'], 'user' => $user]);
+        }
+
+
+        $user->setPassword(password_hash($newPassword, PASSWORD_BCRYPT),);
+        $this->userRepository->updateUser($user);
+
+        return $this->render('user', ['messages' => ['Password updated'], 'user' => $user]);
     }
 
 
