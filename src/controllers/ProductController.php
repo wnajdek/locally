@@ -103,17 +103,6 @@ class ProductController extends AppController {
         }
     }
 
-    public function utf8ize($d) {
-        if (is_array($d)) {
-            foreach ($d as $k => $v) {
-                $d[$k] = $this->utf8ize($v);
-            }
-        } else if (is_string ($d)) {
-            return utf8_encode($d);
-        }
-        return $d;
-    }
-
 
 //    public function addProduct() {
 //        session_start();
@@ -160,10 +149,12 @@ class ProductController extends AppController {
         }
 
         $stallId = $_SESSION['userStallId'];
-        var_dump($_SESSION['userStallId']);
+//        var_dump($_SESSION['userStallId']);
+
 
         if ($this->isPost() && $this->validate($_FILES['image'])) {
-
+            header('Content-Type: application/json');
+            http_response_code(200);
             $image = null;
             if (is_uploaded_file($_FILES['image']['tmp_name'])) {
                 if (!file_exists(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_SESSION['userStallId'])) {
@@ -190,11 +181,20 @@ class ProductController extends AppController {
                 $_POST['id']
             );
             $this->productRepository->updateProduct($product);
-        }
 
-        return $this->render("my_products", ['messages' => $this->messages,
-            'products' => $this->productRepository->getProducts($stallId),
-            'stallId' => $stallId]);
+            $productFromDb = $this->productRepository->getProduct($_POST['id']);
+
+            echo json_encode([
+                'name'=>$productFromDb->getName(),
+                'image'=>$productFromDb->getImage(),
+                'description'=>$productFromDb->getDescription(),
+                'price'=>$productFromDb->getPrice(),
+                'id'=>$productFromDb->getId(),
+                'stallId'=>$productFromDb->getStallId(),
+                'productTypeId'=>$productFromDb->getProductTypeId()
+            ]);
+
+        }
     }
 
     public function deleteProduct() {

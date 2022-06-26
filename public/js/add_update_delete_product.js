@@ -1,5 +1,4 @@
 function addProduct() {
-
     const toSend = new FormData();
     toSend.append('name', document.querySelector("#addProductForm > form > input[name = 'name']").value);
     toSend.append('image', document.querySelector("#addProductForm > form > input[name = 'image']").files[0]);
@@ -12,36 +11,25 @@ function addProduct() {
         body: toSend
     }).then(function (response) {
         return response.json();
-    }).then(function(product) {
-        let template = document.querySelector("#product-template");
+    }).then(createProductAfterFetch)
+}
 
-        let clonedTemplate = template.content.cloneNode(true);
+function updateProduct() {
 
-        let productTile = clonedTemplate.querySelector("#product");
-        let productImage = clonedTemplate.querySelector("#product img")
-        let productName = clonedTemplate.querySelector('.product-content h3');
-        let productDescription = clonedTemplate.querySelector(".product-content .desc");
-        let productPrice = clonedTemplate.querySelector(".product-content .price");
+    const toSend = new FormData();
+    toSend.append('name', document.querySelector("#updateProductForm > form > input[name = 'name']").value);
+    toSend.append('image', document.querySelector("#updateProductForm > form > input[name = 'image']").files[0]);
+    toSend.append('description', document.querySelector("#updateProductForm > form > textarea[name = 'description']").value);
+    toSend.append('price', parseFloat(document.querySelector("#updateProductForm > form > input[name = 'price']").value));
+    toSend.append('id', parseInt(document.querySelector("#updateProductForm > form > input[name = 'id']").value));
 
-        productTile.setAttribute('id', product.id)
-        productImage.setAttribute("src", "/public/uploads/products/" + product.stallId + '/' + product.image);
-        productName.innerHTML = product.name;
-        productDescription.innerHTML = product.description;
-        productPrice.innerHTML = "Price: $" + product.price;
 
-        if (document.querySelector("#btn-change-image")) {
-            let btnTemplate = document.querySelector("#product-buttons-template");
-            let clonedBtnTemplate = btnTemplate.content.cloneNode(true);
-
-            onUpdateButtonClick(clonedBtnTemplate.querySelector('.update-product'));
-            onDeleteButtonClick(clonedBtnTemplate.querySelector('.delete-product'));
-
-            productTile.appendChild(clonedBtnTemplate);
-        }
-
-        document.querySelector(".my-offer-container").appendChild(clonedTemplate);
-        document.querySelector("#addProductForm").classList.remove("active");
-    })
+    fetch(`/updateProduct`, {
+        method: "POST",
+        body: toSend
+    }).then(function (response) {
+        return response.json();
+    }).then(updateProductAfterFetch)
 }
 
 document.querySelector("#show-add-product-form").addEventListener("click", function () {
@@ -81,3 +69,49 @@ document.querySelector(".popup #btn-cancel").addEventListener("click", function 
 document.querySelectorAll(".popup .close-btn").forEach(btn => btn.addEventListener("click", function () {
     document.querySelectorAll(".popup").forEach(form => form.classList.remove("active"));
 }));
+
+function createProductAfterFetch(product) {
+    let template = document.querySelector("#product-template");
+
+    let clonedTemplate = template.content.cloneNode(true);
+
+    let productTile = clonedTemplate.querySelector("#product");
+    let productImage = clonedTemplate.querySelector("#product img")
+    let productName = clonedTemplate.querySelector('.product-content h3');
+    let productDescription = clonedTemplate.querySelector(".product-content .desc");
+    let productPrice = clonedTemplate.querySelector(".product-content .price");
+
+    productTile.setAttribute('id', product.id)
+    productImage.setAttribute("src", "/public/uploads/products/" + product.stallId + '/' + product.image);
+    productName.innerHTML = product.name;
+    productDescription.innerHTML = product.description;
+    productPrice.innerHTML = "Price: $" + product.price;
+
+    if (document.querySelector("#btn-change-image")) {
+        let btnTemplate = document.querySelector("#product-buttons-template");
+        let clonedBtnTemplate = btnTemplate.content.cloneNode(true);
+
+        onUpdateButtonClick(clonedBtnTemplate.querySelector('.update-product'));
+        onDeleteButtonClick(clonedBtnTemplate.querySelector('.delete-product'));
+
+        productTile.appendChild(clonedBtnTemplate);
+    }
+
+    document.querySelector(".my-offer-container").appendChild(clonedTemplate);
+    document.querySelector("#addProductForm").classList.remove("active");
+}
+
+function updateProductAfterFetch(product) {
+    let productTile = document.getElementById(product.id);
+    let productImage = productTile.querySelector("img")
+    let productName = productTile.querySelector('.product-content h3');
+    let productDescription = productTile.querySelector(".product-content .desc");
+    let productPrice = productTile.querySelector(".product-content .price");
+
+    productImage.setAttribute("src", "/public/uploads/products/" + product.stallId + '/' + product.image);
+    productName.innerHTML = product.name;
+    productDescription.innerHTML = product.description;
+    productPrice.innerHTML = "Price: $" + product.price;
+
+    document.querySelector("#updateProductForm").classList.remove("active");
+}
