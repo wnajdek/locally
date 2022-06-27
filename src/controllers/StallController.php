@@ -63,8 +63,8 @@ class StallController extends AppController {
             $this -> render('login', ['messages' => ['You have to log in first.']]);
         }
 
-        var_dump($_SESSION);
-        var_dump($this->userRepository->getLikedStallsIds($_SESSION['userId']));
+//        var_dump($_SESSION);
+//        var_dump($this->userRepository->getLikedStallsIds($_SESSION['userId']));
 
 
         if (func_num_args() == 0 || !func_get_arg(0)) {
@@ -72,13 +72,16 @@ class StallController extends AppController {
             $likedStalls = $this->userRepository->getLikedStallsIds($_SESSION['userId']);
             $stallCategories = [];
 
+            $users = [];
             foreach ($stalls as $stall) {
                 $stallCategories[$stall->getId()] = $this->stallRepository->getCategoriesByStallId($stall->getId());
+                $user = $this->userRepository->getUserById($stall->getUserId());
+                $users[$stall->getId()] = $user;
             }
 
 
             $this -> render('market', ['stalls' => $stalls, 'likedStalls' => $likedStalls,
-                                            'stallCategories' => $stallCategories]);
+                                            'stallCategories' => $stallCategories, 'users' => $users]);
         } else {
             $id = (int) func_get_arg(0);
             $stall = $this->stallRepository->getStall($id);
@@ -116,6 +119,7 @@ class StallController extends AppController {
             http_response_code(200);
 
             $stalls = [];
+            $users = [];
 
             if ($bodyDecoded['searchBy'] === "stall name") {
                 $stalls = $this->stallRepository->getStallByName($bodyDecoded['searchValue']);
@@ -133,9 +137,23 @@ class StallController extends AppController {
                     $stalls[$i]['isLiked'] = false;
                 }
                 $stalls[$i]['categories'] = $this->stallRepository->getCategoriesByStallId($stalls[$i]['id']);
+                $user = $this->userRepository->getUserById($stalls[$i]['user_id']);
+                $users[$stalls[$i]['id']] = [
+                    'firstName' => $user->getFirstName(),
+                    'lastName' => $user->getLastName(),
+                    'image' => $user->getImage(),
+                    'email' => $user->getEmail(),
+                    'phoneNumber' => $user->getPhoneNumber(),
+                    'mainAddress' => $user->getMainAddress(),
+                    'city' => $user->getCity(),
+                    'postalCode' => $user->getPostalCode()
+                ];
             }
 
-            echo json_encode($stalls);
+            echo json_encode([
+                "stalls" => $stalls,
+                "users" => $users
+            ]);
         }
     }
 
@@ -266,19 +284,20 @@ class StallController extends AppController {
         $stalls = $this->stallRepository->getStalls();
         $likedStalls = $this->userRepository->getLikedStallsIds($_SESSION['userId']);
         $stallCategories = [];
-
+        $users = [];
         foreach ($stalls as $key => $stall) {
             if (!in_array($stall->getId(), $likedStalls)) {
                 unset($stalls[$key]);
             } else {
                 $stallCategories[$stall->getId()] = $this->stallRepository->getCategoriesByStallId($stall->getId());
+                $user = $this->userRepository->getUserById($stall->getUserId());
+                $users[$stall->getId()] = $user;
             }
-
         }
 
 
-        $this -> render('favourites', ['stalls' => $stalls, 'likedStalls' => $likedStalls,
-            'stallCategories' => $stallCategories]);
+        $this -> render('market', ['stalls' => $stalls, 'likedStalls' => $likedStalls,
+            'stallCategories' => $stallCategories, 'users'=>$users]);
 
     }
 }

@@ -28,7 +28,8 @@
         <?php include('common/navigation.php') ?>
             
         <main class="main">
-            <header class="top-container" style="background-image: url('/public/uploads/stalls/<?= $stall->getImage() == 'default.jpg' ? 'default.jpg' : ((string) $stall->getId()) . '/' . $stall->getImage()?>')">
+            <header class="top-container">
+                <img id="stall-image" src="/public/uploads/stalls/<?= $stall->getImage() == 'default.jpg' ? 'default.jpg' : ((string) $stall->getId()) . '/' . $stall->getImage()?>" alt="Stall Image">
                 <?php if($buttonsEnabled) : ?>
                     <p class="stall-visibility-text"><?= $status ? 'Public Stall' : 'Private Stall' ?></p>
                     <input type="checkbox" id="switch" <?= $status ? 'checked' : '' ?>/><label for="switch">Toggle</label>
@@ -92,7 +93,7 @@
                         </div>
                         <h2><?= $user->getFirstName() . ' ' . $user->getLastName() ?></h2>
                         <p><strong>Email:</strong> <?= $user->getEmail()?></p>
-                        <p><strong>Phone:</strong> <?= $user->getPhoneNumber()?></p>
+                        <p><strong>Phone:</strong> <?= chunk_split($user->getPhoneNumber(), 3, ' ')?></p>
                         <p><strong>Address:</strong> <?= $user->getMainAddress()?></p>
                     </div>
                 </aside>
@@ -115,7 +116,7 @@
 
                 <p id="price" class="price"></p>
             </div>
-
+`
         </div>
     </template>
 

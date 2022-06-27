@@ -31,6 +31,7 @@ button:hover {
     background-size: 100% auto;
     background-color: white;
     box-shadow: inset 0px 0px 99px #000000D1;
+    overflow: hidden
 }
 
 .add-product-button {
@@ -231,7 +232,7 @@ button:hover {
     overflow: hidden
 }
 
-.owner-photo > img {
+.owner-photo > img, #stall-image {
     object-fit: cover;
     flex-shrink: 0;
     min-width: 100%;

@@ -54,11 +54,14 @@
                         <ion-icon name="person-circle-sharp" class="owner-icon"></ion-icon>
 
                         <div class="owner-info">
-                            <div class="owner-photo"></div>
-                            <h2>Tom Jones</h2>
-                            <p>Email: tom.jones@gmail.com</p>
-                            <p>Phone: 123 456 789</p>
-                            <p>Address: Zawoja 1307</p>
+                            <div class="owner-photo">
+                                <img src="/public/uploads/users/<?= $users[$stall->getId()]->getEmail() ?>/<?= $users[$stall->getId()]->getImage() ?>" alt="">
+                            </div>
+                            <h2><?= $users[$stall->getId()]->getFirstName() ?> <?= $users[$stall->getId()]->getLastName() ?></h2>
+                            <p class="email"><strong>Email: </strong> <?= $users[$stall->getId()]->getEmail() ?></p>
+                            <p class="phone"><strong>Phone: </strong> <?= chunk_split($users[$stall->getId()]->getPhoneNumber(), 3, ' ')  ?></p>
+                            <p class="address"><strong>Address: </strong> <?= $users[$stall->getId()]->getMainAddress() ?>,
+                                <?= $users[$stall->getId()]->getPostalCode() ?> <?= $users[$stall->getId()]->getCity() ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -92,14 +95,17 @@
                 </div>
 
                 <ion-icon name="person-circle-sharp" class="owner-icon"></ion-icon>
-
-                <div class="owner-info">
-                    <div class="owner-photo"></div>
-                    <h2>Tom Jones</h2>
-                    <p>Email: tom.jones@gmail.com</p>
-                    <p>Phone: 123 456 789</p>
-                    <p>Address: Zawoja 1307</p>
-                </div>
             </div>
+    </template>
+    <template id="user-info-template">
+        <div class="owner-info">
+            <div class="owner-photo">
+                <img src="" alt="">
+            </div>
+            <h2>Tom Jones</h2>
+            <p class="email">Email: tom.jones@gmail.com</p>
+            <p class="phone">Phone: 123 456 789</p>
+            <p class="address">Address: Zawoja 1307</p>
+        </div>
     </template>
 </html>

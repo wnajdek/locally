@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="public/css/navigation.css">
+<link rel="stylesheet" type="text/css" href="/public/css/navigation.css">
 <nav class="navigation">
     <a id='link-logo' href="/market">
         <h1 class="logo">Locally</h1>
