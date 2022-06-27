@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="public/css/common.css">
     <link rel="stylesheet" type="text/css" href="/public/css/my_products.css">
     <title>My Products</title>
 
@@ -18,30 +19,13 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/bcb9ab98f6.js" crossorigin="anonymous"></script>
 
+    <script src="/public/js/add_stall_categories.js" type="text/javascript" defer></script>
     <script src="/public/js/add_update_delete_product.js" type="text/javascript" defer></script>
     <script src="/public/js/stall.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div class="main-container">
-        <nav class="navigation">
-            <a id='link-logo' href="/market">
-                <h1 class="logo">Locally</h1>
-                <p class="slogan">Because the good stuff is local</p>
-            </a>
-
-    
-            <ul>
-                <li><a href="/market" class="<?= $activePage === 'Market' ? 'active-page' : '' ?>"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="/my_products" class="<?= $activePage === 'My products' ? 'active-page' : '' ?>"><span class="mif-home nav-icon"></span>My products</a></li>
-                <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
-                <li><a href="/user"><span class="mif-user nav-icon"></span>User</a></li>
-                <?php if($_SESSION['isAdmin']) :?>
-                    <li><a href="/admin"><span class="mif-cog nav-icon"></span>Admin</a></li>
-                <?php endif;?>
-                <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
-                <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
-            </ul>
-        </nav>
+        <?php include('common/navigation.php') ?>
             
         <main class="main">
             <header class="top-container" style="background-image: url('/public/uploads/stalls/<?= $stall->getImage() == 'default.jpg' ? 'default.jpg' : ((string) $stall->getId()) . '/' . $stall->getImage()?>')">
@@ -52,117 +36,8 @@
                     <button id="btn-change-image"><span class="mif-file-image mif-3x nav-icon"></span></button>
                 <?php endif;?>
             </header>
-            <?php if($buttonsEnabled) : ?>
-                <button class="add-product-button" id="show-add-product-form"><i class="fa-solid fa-circle-plus"></i><span class="add-button-text">Add product</span></button>
 
-                <div id="addProductForm" class="popup">
-                    <div class="close-btn">&times;</div>
-                    <h1 class="add-product-text">Add Product</h1>
-                    <form action="/addProduct" method="POST" enctype="multipart/form-data">
-                        <?php
-                        if(isset($messages)){
-                            foreach($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                        ?>
-                        <input name="name" type="text" placeholder="Product name">
-                        <input name="image" type="file" placeholder="Image">
-                        <textarea name="description" placeholder="Product description" rows="5"></textarea>
-                        <input name="price" type="number" placeholder="Price">
-
-                        <button type="button">Add product</button>
-                    </form>
-                </div>
-
-                <div id="updateProductForm" class="popup">
-                    <div class="close-btn">&times;</div>
-                    <h1 class="add-product-text">Update Product</h1>
-                    <form action="/updateProduct" method="POST" enctype="multipart/form-data">
-                        <?php
-                        if(isset($messages)){
-                            foreach($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                        ?>
-                        <input name="name" type="text" placeholder="Product name">
-                        <img src="" alt="Current product image">
-                        <input name="image" type="file" placeholder="Image">
-                        <textarea name="description" placeholder="Product description" rows="5"></textarea>
-                        <input name="price" type="number" placeholder="Price">
-                        <input name="id" type="number" class="hidden-input">
-                        <button type="button">Update product</button>
-                    </form>
-                </div>
-
-                <div id="deleteConfirmForm" class="popup">
-                    <div class="close-btn">&times;</div>
-                    <h1 class="add-product-text">Delete Product</h1>
-                    <p>Are you sure you want to delete this product?</p>
-                    <form action="/deleteProduct" method="POST" enctype="multipart/form-data">
-                        <input name="id" type="number" class="hidden-input">
-
-                        <button type="button">Delete</button>
-                        <button id="btn-cancel" type="button">Cancel</button>
-
-                    </form>
-                </div>
-
-                <div id="changeImage" class="popup">
-                    <div class="close-btn">&times;</div>
-                    <h1 class="add-product-text">Change image</h1>
-                    <form action="/changeImage" method="POST" enctype="multipart/form-data">
-                        <?php
-                        if(isset($messages)){
-                            foreach($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                        ?>
-                        <input name="image" type="file" required placeholder="Image">
-                        <input name="id" type="number" class="hidden-input">
-                        <button type="button">Change image</button>
-                    </form>
-                </div>
-
-                <div id="changeText" class="popup">
-                    <div class="close-btn">&times;</div>
-                    <h1 class="add-product-text">Change Stall name and description</h1>
-                    <form action="/changeText" method="POST" enctype="multipart/form-data">
-                        <?php
-                        if(isset($messages)){
-                            foreach($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                        ?>
-                        <input name="name" type="text" placeholder="Stall name">
-                        <textarea name="description" placeholder="Stall description" rows="5"></textarea>
-                        <button type="button">Change</button>
-                    </form>
-                </div>
-
-                <div id="changeCategories" class="popup">
-                    <div class="close-btn">&times;</div>
-                    <h1 class="add-product-text">Change categories</h1>
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        <?php
-                        if(isset($messages)){
-                            foreach($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                        ?>
-                        <?php foreach ($categories as $category): ?>
-                            <label><input type="checkbox" name="categories[]" value="<?= $category['id']?>"><?= $category['type']?></label>
-                        <?php endforeach; ?>
-                        <button type="button">Save</button>
-                    </form>
-                </div>
-            <?php endif;?>
-
-
+            <?php include('common/stall_forms.php') ?>
 
             <div class="content-container">
                 <div class="description-container">
@@ -224,11 +99,6 @@
             </div>
         </main>
     </div>
-    
-
-
-
-
 
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

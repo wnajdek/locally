@@ -278,7 +278,6 @@ class SecurityController extends AppController {
             header("Location: {$url}/market");
         }
         $this->userRepository->deleteUser($id);
-//        $this->stallRepository->deleteStallByUserId($id);
 
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/admin");

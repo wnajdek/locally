@@ -34,7 +34,7 @@ function loadStalls(stalls) {
 }
 
 function createStallTile(stall) {
-    console.log(stall.isLiked)
+    // console.log(stall.isLiked)
     if (window.location.href.includes("favourites") && !stall.isLiked) {
         return;
     }
@@ -56,27 +56,15 @@ function createStallTile(stall) {
     name.innerHTML = stall.name;
     description.innerHTML = stall.description;
     likes.innerHTML = stall.likes;
-    image.setAttribute("src", "/public/uploads/stalls/" + stall.id + '/' + stall.image);
+    if (stall.image != 'default.jpg') {
+        image.setAttribute("src", "/public/uploads/stalls/" + stall.id + '/' + stall.image);
+    } else {
+        image.setAttribute("src", "/public/uploads/stalls/" + stall.image);
+    }
 
-    stall.categories.forEach(category => {
-        let categoryDiv = document.createElement("div");
-        categoryDiv.classList.add("category" + category.id);
-        let categoryNameDiv = document.createElement("div");
-        categoryNameDiv.classList.add("category-name");
-        categoryNameDiv.innerHTML = category.type;
 
-        let categoryIdHiddenDiv = document.createElement("div");
-        categoryIdHiddenDiv.classList.add("hidden");
-        categoryIdHiddenDiv.innerHTML = category.id;
-
-        categoryDiv.appendChild(categoryNameDiv);
-        categoryDiv.appendChild(categoryIdHiddenDiv);
-
-        categories.appendChild(categoryDiv);
-    })
-
+    addStallCategories(stall.categories, categories);
 
     offersContainer.appendChild(clonedTemplate);
 
 }
-// document.querySelector('.select-box__input:checked').value;

@@ -32,93 +32,6 @@ button:hover, button:focus {
     cursor: pointer;
 }
 
-#link-logo:hover {
-    text-decoration: none;
-}
-
-.logo {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0px;
-    font-weight: bold;
-    font-size: 2.5em;
-    color: #EA6C20;
-}
-
-.slogan {
-    text-align: left;
-    font-family: 'Exo 2', sans-serif;
-    font-size: 0.7em;
-    letter-spacing: 5px;
-    color: #EA6C20;
-    margin-top: -1.5em;
-
-}
-
-.navigation {
-    width: 20vw;
-    height: 100vh;
-    background-color: #FFB300;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 2em;
-    z-index: 1000;
-}
-
-.navigation > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 2em 0;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    text-align: left;
-}
-
-.navigation > ul > li {
-    padding: .8em 0;
-}
-
-.navigation > ul > li:last-child {
-    margin-top: auto;
-}
-
-.navigation > ul > li > a {
-    display: block;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    text-decoration: none;
-    font-size: 1.5em;
-    display: flex;
-    align-items: center;
-}
-
-
-.navigation > ul > li > a:hover {
-    color: black;
-    text-decoration: none;
-    animation-name: example;
-    animation-duration: .5s;
-}
-
-@keyframes example {
-    0%   {margin-left: 0px;}
-    25%  {margin-left: 5px;}
-    50%  {margin-left: -5px;}
-    100% {margin-left: 0px;}
-}
-
-.nav-icon {
-    padding: 0 .5em;
-    font-size: 1.3em;
-}
-
-.active-page {
-    color: black !important;
-    font-weight: bold;
-}
-
 .main {
     width: 80vw;
     /* background-color: #0ff2; */
@@ -127,96 +40,10 @@ button:hover, button:focus {
     position: relative;
 }
 
-.popup {
-    position: absolute;
-    /*top: 50%;*/
-    left:50%;
-    top: -150%;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.25);
-    width: 50vw;
-    padding: 20px 30px;
-    background-color: white;
-    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    transition: top 0ms ease-in-out 200ms,
-    opacity 200ms ease-in-out 0ms,
-    transform 200ms ease-in-out 0ms;
-    z-index: 100000;
-}
-
-.popup.active {
-    top: 50%;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    transition: top 0ms ease-in-out 0ms,
-    opacity 200ms ease-in-out 0ms,
-    transform 200ms ease-in-out 0ms;
-}
-
-.popup .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.hidden-input {
-    display: none;
-}
-
-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: auto;
-}
-
-form > input, form textarea {
-    width: 100%;
-    background: #F5F5F5;
-    border: 0;
-    margin: 10px 0;
-    padding: 1em 2em;
-    border-radius: 3vmin;
-}
-
-form textarea {
-    resize: vertical;
-}
-
-form > button {
-    width: 45%;
-    height: 3em;
-    background: #FFB300;
-    border: 1px solid #707070;
-    border-radius: 3vmin;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    margin-top: 2em;
-    float: right;
-}
-
-.add-product-text {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    font-size: 3.5em;
-    margin-top: 1.5em;
-}
-
 .invalid-input {
     outline: 2px solid red;
     outline-offset: 2px;
 }
-
-
 
 .user-container > h3 {
     margin-top: 8rem;
@@ -224,27 +51,4 @@ form > button {
 
 .user-container {
     padding: 4rem 0;
-}
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    /* background: #f1f1f1; */
-    background-color: white;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 20px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }

@@ -15,78 +15,21 @@
     <!-- Metro UI -->
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
 
+    <script src="/public/js/add_stall_categories.js" type="text/javascript" defer></script>
     <script src="public/js/searchBox.js" type="text/javascript" defer></script>
     <script src="public/js/stats.js" type="text/javascript" defer></script>
     <script src="public/js/market.js" type="text/javascript" defer></script>
 </head>
 <body>
 <div class="main-container">
-    <nav class="navigation">
-        <a id='link-logo' href="/market">
-            <h1 class="logo">Locally</h1>
-            <p class="slogan">Because the good stuff is local</p>
-        </a>
-
-        <ul>
-            <li><a href="/market"><span class="mif-shop nav-icon"></span>Market</a></li>
-            <li><a href="/my_products"><span class="mif-home nav-icon"></span>My products</a></li>
-            <li><a href="/favourites" class="active-page"><span class="mif-heart nav-icon"></span>Favourites</a></li>
-            <li><a href="/user"><span class="mif-user nav-icon"></span>User</a></li>
-            <?php if($_SESSION['isAdmin']) :?>
-                <li><a href="/admin"><span class="mif-cog nav-icon"></span>Admin</a></li>
-            <?php endif;?>
-            <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
-            <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
-        </ul>
-    </nav>
+    <?php include('common/navigation.php') ?>
 
     <main class="main">
-        <header>
-            <div class="search-bar">
-
-                <!-- <label for="search-by">Search by</label>
-                <select name="search-by" id="search-by">
-                    <option value="farm name">farm name</option>
-                    <option value="product">product</option>
-                </select> -->
-                <div class="select-box">
-                    <div class="select-box__current" tabindex="1">
-                        <img class="select-box__icon" src="public/image/chevron-down-circle-outline.svg" alt="Arrow Icon"
-                             aria-hidden="true"/>
-                        <div class="select-box__value">
-                            <input class="select-box__input" type="radio" id="0" value="stall name" name="option" checked="checked" />
-                            <p class="select-box__input-text">stall name</p>
-                        </div>
-                        <div class="select-box__value">
-                            <input class="select-box__input" type="radio" id="1" value="product" name="option" />
-                            <p class="select-box__input-text">product</p>
-                        </div>
-                        <div class="select-box__value">
-                            <input class="select-box__input" type="radio" id="2" value="category" name="option" />
-                            <p class="select-box__input-text">category</p>
-                        </div>
-                    </div>
-                    <ul class="select-box__list">
-                        <li>
-                            <label class="select-box__option" for="0" aria-hidden="aria-hidden">stall name</label>
-                        </li>
-                        <li>
-                            <label class="select-box__option" for="1" aria-hidden="aria-hidden">product</label>
-                        </li>
-                        <li>
-                            <label class="select-box__option" for="2" aria-hidden="aria-hidden">category</label>
-                        </li>
-                    </ul>
-                </div>
-
-                <input type="search" name="q" placeholder="Search">
-
-            </div>
-        </header>
+        <?php include('common/search_bar.php') ?>
         <section class="offers">
             <?php foreach ($stalls as $stall): ?>
                 <div id="<?= $stall->getId() ?>" class="tile">
-                    <img src="public/uploads/stalls/<?= $stall->getImage()?>" alt="Foto of market or local products">
+                    <img src="public/uploads/stalls/<?= $stall->getImage() != 'default.jpg' ? (string) $stall->getId() . '/': '' ?><?= $stall->getImage()?>" alt="Foto of market or local products">
 
                     <h3><?= $stall->getName()?></h3>
                     <p><?= $stall->getDescription()?></p>

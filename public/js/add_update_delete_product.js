@@ -15,7 +15,6 @@ function addProduct() {
 }
 
 function updateProduct() {
-
     const toSend = new FormData();
     toSend.append('name', document.querySelector("#updateProductForm > form > input[name = 'name']").value);
     toSend.append('image', document.querySelector("#updateProductForm > form > input[name = 'image']").files[0]);
@@ -33,10 +32,8 @@ function updateProduct() {
 }
 
 function deleteProduct() {
-
     const toSend = new FormData();
     toSend.append('id', parseInt(document.querySelector("#deleteConfirmForm > form > input[name = 'id']").value));
-
 
     fetch(`/deleteProduct`, {
         method: "POST",
@@ -45,7 +42,6 @@ function deleteProduct() {
         return response.json();
     }).then(deleteProductAfterFetch)
 }
-
 
 document.querySelector("#show-add-product-form").addEventListener("click", function () {
     document.querySelector("#addProductForm").classList.add("active");
@@ -67,8 +63,6 @@ function onUpdateButtonClick(btn) {
     });
 }
 
-document.querySelectorAll(".delete-product").forEach(onDeleteButtonClick);
-
 function onDeleteButtonClick(btn) {
     return btn.addEventListener("click", function () {
         document.querySelector("#deleteConfirmForm").classList.add("active");
@@ -78,6 +72,9 @@ function onDeleteButtonClick(btn) {
     });
 }
 
+document.querySelectorAll(".delete-product").forEach(onDeleteButtonClick);
+
+
 document.querySelector(".popup #btn-cancel").addEventListener("click", function () {
     document.querySelector("#deleteConfirmForm").classList.remove("active");
 });
@@ -86,6 +83,9 @@ document.querySelectorAll(".popup .close-btn").forEach(btn => btn.addEventListen
     document.querySelectorAll(".popup").forEach(form => form.classList.remove("active"));
 }));
 
+
+
+// add created product to view
 function createProductAfterFetch(product) {
     let template = document.querySelector("#product-template");
 
@@ -117,6 +117,7 @@ function createProductAfterFetch(product) {
     document.querySelector("#addProductForm").classList.remove("active");
 }
 
+// update product data in view
 function updateProductAfterFetch(product) {
     let productTile = document.getElementById(product.id);
     let productImage = productTile.querySelector("img")
@@ -132,6 +133,7 @@ function updateProductAfterFetch(product) {
     document.querySelector("#updateProductForm").classList.remove("active");
 }
 
+// remove product from view
 function deleteProductAfterFetch(product) {
     document.getElementById(product.id).remove()
     document.querySelector("#deleteConfirmForm").classList.remove("active");

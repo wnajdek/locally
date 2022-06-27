@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="public/css/common.css">
     <link rel="stylesheet" type="text/css" href="public/css/register.css">
     <title>Register</title>
 
@@ -52,11 +53,6 @@
         </div>
     </main>
 </div>
-
-
-
-
-
 
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

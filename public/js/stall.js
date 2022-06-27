@@ -1,3 +1,4 @@
+// private/public toggle
 function changeStallVisibility() {
     fetch(`/changeVisibility`)
         .then(function() {
@@ -11,6 +12,7 @@ function changeStallVisibility() {
 
 document.querySelector(".top-container input[type='checkbox']").addEventListener("change", changeStallVisibility);
 
+// change image on form button click
 function changeImage() {
     if(document.querySelector("#changeImage > form > input[name = 'image']").value == "") {
         return;
@@ -33,18 +35,19 @@ function changeImage() {
     })
 }
 
-document.querySelector("#changeImage form button").addEventListener('click', changeImage);
+document.querySelector('#btn-change-image').addEventListener('click', function () {
+    document.querySelector("#changeImage").classList.add("active");
+    document.querySelector("#changeImage form button").addEventListener('click', changeImage);
+});
 
 
+// setting height for name and description container
 let descriptionHeight = document.querySelector(".description-container").getBoundingClientRect().height;
 document.querySelector(".my-offer-container").style.height = 'calc(100% - ' + descriptionHeight + 'px)';
 document.querySelector(".owner-info-container").style.height = 'calc(100% - ' + descriptionHeight + 'px)';
 
 
-document.querySelector('#btn-change-image').addEventListener('click', function () {
-    document.querySelector("#changeImage").classList.add("active");
-});
-
+// change stall name and description
 function changeStallText() {
     const toSend = {
         name: document.querySelector("#changeText > form > input[name = 'name']").value,
@@ -81,7 +84,6 @@ function updateStallCategories() {
             if (checkbox.checked) {
                 categoriesArray.push(parseInt(checkbox.value));
             }
-
         })
 
     const toSend = {
@@ -95,34 +97,21 @@ function updateStallCategories() {
         body: JSON.stringify(toSend)
     }).then(function (response) {
         return response.json();
-    }).then(function(data) {
+    }).then(function (data) {
         let categories = document.querySelector('.categories');
         document.querySelector('.categories').innerHTML = '';
 
-        data.forEach(category => {
-            let categoryDiv = document.createElement("div");
-            categoryDiv.classList.add("category" + category.id);
-            let categoryNameDiv = document.createElement("div");
-            categoryNameDiv.classList.add("category-name");
-            categoryNameDiv.innerHTML = category.type;
-
-            let categoryIdHiddenDiv = document.createElement("div");
-            categoryIdHiddenDiv.classList.add("hidden");
-            categoryIdHiddenDiv.innerHTML = category.id;
-
-            categoryDiv.appendChild(categoryNameDiv);
-            categoryDiv.appendChild(categoryIdHiddenDiv);
-
-            categories.appendChild(categoryDiv);
-        });
-
+        addStallCategories(data, categories);
+    }).then(function () {
         document.querySelector("#changeCategories").classList.remove("active");
-    })
+    });
 }
 
 document.querySelector('#btn-change-categories').addEventListener('click', function () {
     document.querySelector("#changeCategories").classList.add("active");
     document.querySelector("#changeCategories > form > button").addEventListener('click', updateStallCategories);
 });
+
+
 
 
