@@ -74,6 +74,18 @@ class StallRepository extends Repository
         ]);
     }
 
+//    public function deleteStallByUserId(int $id) {
+//        $statement = $this->database->connect()->prepare(
+//            'DELETE FROM public.stall
+//                    WHERE user_id = ?'
+//        );
+//
+//        $statement->execute([
+//            $id
+//        ]);
+//    }
+
+
     public function getStallByName(string $value) {
         $value = strtolower('%' . $value . '%');
 

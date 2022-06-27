@@ -11,6 +11,30 @@ function changeStallVisibility() {
 
 document.querySelector(".top-container input[type='checkbox']").addEventListener("change", changeStallVisibility);
 
+function changeImage() {
+    if(document.querySelector("#changeImage > form > input[name = 'image']").value == "") {
+        return;
+    }
+
+    const toSend = new FormData();
+    toSend.append('id', document.querySelector("#changeImage > form > input[name = 'id']").value);
+    toSend.append('image', document.querySelector("#changeImage > form > input[name = 'image']").files[0]);
+
+
+    fetch(`/changeImage`, {
+        method: "POST",
+        body: toSend
+    }).then(function (response) {
+        return response.json();
+    }).then(function (stall) {
+        document.querySelector('.top-container').style.backgroundImage = 'url(/public/uploads/stalls/'
+            + stall.id.toString() + "/" + stall.image;
+        document.querySelector("#changeImage").classList.remove('active');
+    })
+}
+
+document.querySelector("#changeImage form button").addEventListener('click', changeImage);
+
 
 let descriptionHeight = document.querySelector(".description-container").getBoundingClientRect().height;
 document.querySelector(".my-offer-container").style.height = 'calc(100% - ' + descriptionHeight + 'px)';

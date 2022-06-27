@@ -33,8 +33,8 @@
             </div>
             <form action="/register" method="POST" enctype="multipart/form-data">
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="password" name="passwordRepeat" placeholder="Repeat your password" required>
+                <input type="password" name="password" pattern=".{8,12}" placeholder="Password" required>
+                <input type="password" name="passwordRepeat" pattern=".{8,12}" placeholder="Repeat your password" required>
                 <input type="text" name="firstName" placeholder="First name" required>
                 <input type="text" name="lastName" placeholder="Last name" required>
                 <input type="text" name="phone" placeholder="Phone number" required>

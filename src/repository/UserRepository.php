@@ -73,6 +73,41 @@ class UserRepository extends Repository
         );
     }
 
+    public function getUsers(): ?array {
+        $result = [];
+
+        $statement = $this->database->connect()->prepare('
+            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            FROM public.user
+            INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
+            INNER JOIN public.address ON user_details.address_id = address.id
+            INNER JOIN public.role ON public.user.role_id = public.role.id;
+        ');
+
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($users as $user) {
+            $result[] = new User(
+                $user['email'],
+                $user['password'],
+                $user['first_name'],
+                $user['last_name'],
+                $user['role'],
+                $user['phone_number'],
+                $user['main_address'],
+                $user['location_details'],
+                $user['city'],
+                $user['postal_code'],
+                $user['image'],
+                $user['user_id']
+            );
+
+        }
+
+        return $result;
+    }
+
     public function addUser(User $user)
     {
         $statement = $this->database->connect()->prepare('
@@ -180,49 +215,18 @@ class UserRepository extends Repository
             $user->getPostalCode(),
             $addressId
         ]);
-
     }
 
+    public function deleteUser(int $id) {
+        $statement = $this->database->connect()->prepare(
+            'DELETE FROM public.user
+                    WHERE id = ?'
+        );
 
-//    public function getAddressId(User $user): ?int
-//    {
-//        $statement = $this->database->connect()->prepare('
-//            SELECT * FROM public.address WHERE main_address = :mainAddress AND location_details = :locationDetails AND city = :city AND postal_code = :postalCode
-//        ');
-//
-//        $mainAddress = $user->getMainAddress();
-//        $locationDetails = $user->getLocationDetails();
-//        $city = $user->getCity();
-//        $postalCode = $user->getPostalCode();
-//        $statement->bindParam(':mainAddress', $mainAddress, PDO::PARAM_STR);
-//        $statement->bindParam(':locationDetails', $locationDetails, PDO::PARAM_STR);
-//        $statement->bindParam(':city', $city, PDO::PARAM_STR);
-//        $statement->bindParam(':postalCode', $postalCode, PDO::PARAM_STR);
-//        $statement->execute();
-//
-//        $data = $statement->fetch(PDO::FETCH_ASSOC);
-//        return $data['id'];
-//    }
-//
-//    public function getUserDetailsId(User $user): ?int
-//    {
-//        $statement = $this->database->connect()->prepare('
-//            SELECT * FROM public.user_details WHERE first_name = :firstName AND last_name = :lastName AND phone_number = :phoneNumber AND image = :image
-//        ');
-//
-//        $firstName = $user->getFirstName();
-//        $lastName = $user->getLastName();
-//        $phoneNumber = $user->getPhoneNumber();
-//        $image = $user->getImage();
-//        $statement->bindParam(':firstName', $firstName, PDO::PARAM_STR);
-//        $statement->bindParam(':lastName', $lastName, PDO::PARAM_STR);
-//        $statement->bindParam(':phoneNumber', $phoneNumber, PDO::PARAM_STR);
-//        $statement->bindParam(':image', $image, PDO::PARAM_STR);
-//        $statement->execute();
-//
-//        $data = $statement->fetch(PDO::FETCH_ASSOC);
-//        return $data['id'];
-//    }
+        $statement->execute([
+            $id
+        ]);
+    }
 
     public function getLikedStallsIds(int $id) {
 
@@ -235,5 +239,17 @@ class UserRepository extends Repository
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function getStallId(int $id): int {
+        $statement = $this->database->connect()->prepare('
+            SELECT public.stall.id FROM public.stall WHERE user_id = :id
+        ');
+
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $statement->execute();
+
+        return $statement->fetchColumn();
     }
 }

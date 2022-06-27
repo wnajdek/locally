@@ -14,6 +14,10 @@ Router::get('favourites', 'StallController');
 Router::get('my_products', 'StallController');
 Router::get('contact', 'MailController');
 Router::get('changeVisibility', 'StallController');
+Router::get('admin', 'SecurityController');
+Router::get('mail', 'MailController');
+Router::get('simulateUser', 'SecurityController');
+Router::get('deleteUser', 'SecurityController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
@@ -28,7 +32,7 @@ Router::post('like', 'StallController');
 Router::post('changeImage', 'StallController');
 Router::post('changeText', 'StallController');
 Router::post('updateStallCategories', 'StallController');
-Router::get('mail', 'MailController');
+
 
 
 

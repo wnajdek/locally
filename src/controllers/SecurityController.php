@@ -62,12 +62,6 @@ class SecurityController extends AppController {
         }
 
         $_SESSION['isAdmin'] = $user->getRole() == 'ADMIN';
-//        if (!$_SESSION['isAdmin']) {
-//            $stall = $this->stallRepository->getStallByUserId($user->getId());
-//            $_SESSION['userStallId'] = $stall->getId();
-//        } else {
-//            $_SESSION['userStallId'] = 0;
-//        }
         $stall = $this->stallRepository->getStallByUserId($user->getId());
         $_SESSION['userStallId'] = $stall->getId();
         $_SESSION['userId'] = $user->getId();
@@ -87,7 +81,6 @@ class SecurityController extends AppController {
         session_destroy();
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/login");
-//        return $this->render('login', ['messages' => 'You have been successfully logged out.']);
 
     }
 
@@ -161,8 +154,6 @@ class SecurityController extends AppController {
 
         $userFromDb = $this->userRepository->getUser($email);
 
-//        var_dump($userFromDb->getId());
-//        var_dump($userFromDb);
         $stall = new Stall(
             explode('@', $email)[0] . '\'s bazaar',
             'Here is a place for more info about your bazaar',
@@ -224,6 +215,73 @@ class SecurityController extends AppController {
 
 
         return $this->render('user', ['messages' => ['User successfully updated'], 'user' => $user]);
+    }
+
+    public function admin() {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        }
+
+        if (!$_SESSION['isAdmin']) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/market");
+        }
+
+        $users= $this->userRepository->getUsers();
+
+        return $this->render('admin', ['users' => $users]);
+    }
+
+    public function simulateUser(int $id) {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        }
+
+        if (!$_SESSION['isAdmin']) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/market");
+        }
+
+        $user = $this->userRepository->getUserById($id);
+
+        if ($user !== null) {
+            $_SESSION['userId'] = $id;
+            $_SESSION['userEmail'] = $user->getEmail();
+            $_SESSION['userStallId'] = $this->userRepository->getStallId($id);
+        }
+
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/admin");
+    }
+
+    public function deleteUser(int $id) {
+        session_start();
+
+        if (!isset($_SESSION['userId'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        }
+
+        if (!$_SESSION['isAdmin']) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/market");
+        }
+
+        if ($_SESSION['userId'] === $id) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/market");
+        }
+        $this->userRepository->deleteUser($id);
+//        $this->stallRepository->deleteStallByUserId($id);
+
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/admin");
     }
 
     public function changePassword() {

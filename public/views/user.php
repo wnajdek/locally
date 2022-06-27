@@ -30,6 +30,9 @@
             <li><a href="/my_products"><span class="mif-home nav-icon"></span>My products</a></li>
             <li><a href="/favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
             <li><a href="/user" class="active-page"><span class="mif-user nav-icon"></span>User</a></li>
+            <?php if($_SESSION['isAdmin']) :?>
+                <li><a href="/admin"><span class="mif-cog nav-icon"></span>Admin</a></li>
+            <?php endif;?>
             <li><a href="/logout"><span class="mif-keyboard-return nav-icon"></span>Log out</a></li>
             <li><a href="/contact"><span class="mif-mail nav-icon"></span>Contact</a></li>
         </ul>
@@ -68,9 +71,9 @@
 
             <h3>Change password</h3>
             <form action="/changePassword" method="POST" enctype="multipart/form-data">
-                <input type="password" name="passwordOld" placeholder="Current password" required>
-                <input type="password" name="password" placeholder="New password" required>
-                <input type="password" name="passwordRepeat" placeholder="Repeat your new password" required>
+                <input type="password" name="passwordOld" pattern=".{8,12}" placeholder="Current password" required>
+                <input type="password" name="password" pattern=".{8,12}" placeholder="New password" required>
+                <input type="password" name="passwordRepeat" pattern=".{8,12}" placeholder="Repeat your new password" required>
 
                 <button type="submit">Update password</button>
             </form>

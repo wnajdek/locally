@@ -170,12 +170,7 @@ class StallController extends AppController {
         session_start();
 
         $stallId = $_SESSION['userStallId'];
-        $products = $this->productRepository->getProducts($stallId);
         $stall = $this->stallRepository->getStall($stallId);
-        $stallCategories = $this->stallRepository->getCategoriesByStallId($stallId);
-        $user = $this->userRepository->getUser($_SESSION['userEmail']);
-        $categories = $this->stallRepository->getCategories();
-        $this->stallRepository->updateStall($stall);
 
         if ($this->isPost() && is_uploaded_file($_FILES['image']['tmp_name']) && $this->validate($_FILES['image'])) {
             if (!file_exists(dirname(__DIR__) . self::UPLOAD_DIRECTORY . $stall->getId())) {
@@ -186,13 +181,16 @@ class StallController extends AppController {
                 dirname(__DIR__) . self::UPLOAD_DIRECTORY . $stall->getId() . '/' . $_FILES['image']['name']
             );
 
-            $stall->setImage($_FILES['image']['name']);
+            header('Content-Type: application/json');
+            http_response_code(200);
 
-            $this -> render('stall', ['products' => $products, 'stall' => $stall,
-                'buttonsEnabled' => true, 'stallId' => $stallId,
-                'status' => $stall->getPublic(), 'activePage' => 'My products',
-                'user' => $user, 'stallCategories' => $stallCategories,
-                'categories' => $categories]);
+            $stall->setImage($_FILES['image']['name']);
+            $this->stallRepository->updateStall($stall);
+
+            echo json_encode(array(
+                'id'=> $stallId,
+                'image' => $stall->getImage()
+            ));
         }
     }
 
