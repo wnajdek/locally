@@ -32,9 +32,9 @@
 - You can go to /favourites subpage to see only liked stalls
 
 ## Screenshots
-![Login screen](screenshots/login_screen.png)
-![Favourite stalls view](screenshots/favourites.png)
-![My stall view](screenshots/stall.png)
+![Login screen](screenshots/login_screen.jpg)
+![Favourite stalls view](screenshots/favourites.jpg)
+![My stall view](screenshots/stall.jpg)
 
 
 
