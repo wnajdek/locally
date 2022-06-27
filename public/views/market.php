@@ -86,7 +86,7 @@
             <section class="offers">
                 <?php foreach ($stalls as $stall): ?>
                     <div id="<?= $stall->getId() ?>" class="tile">
-                        <img src="public/uploads/stalls/<?= $stall->getImage()?>" alt="Foto of market or local products">
+                        <img src="public/uploads/stalls/<?= $stall->getImage() != 'default.jpg' ? (string) $stall->getId() . '/' : '' ?>/<?= $stall->getImage()?>" alt="Foto of market or local products">
 
                         <h3><?= $stall->getName()?></h3>
                         <p><?= $stall->getDescription()?></p>
