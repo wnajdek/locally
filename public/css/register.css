@@ -25,13 +25,13 @@ button:hover, button:focus {
     outline-offset: 2px;
 }
 
-@media only screen and (max-device-width: 400px) {
+@media only screen and (max-width: 400px) {
     .register-container {
         min-width: 300px;
     }
 }
 
-@media only screen and (max-device-width: 300px) {
+@media only screen and (max-width: 300px) {
     .register-container {
         min-width: 240px;
     }
