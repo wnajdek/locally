@@ -160,4 +160,23 @@
     }
 }
 
-/* End of select box's styles */
+@media only screen and (max-device-width: 800px) {
+    .search-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar > input[type="search"] {
+        width: 16em;
+        height: 3em;
+    }
+
+}
+
+@media only screen and (max-device-width: 400px) {
+    .search-bar > input[type="search"] {
+        width: 12em;
+        height: 3em;
+    }
+
+}

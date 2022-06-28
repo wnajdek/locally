@@ -113,6 +113,15 @@ document.querySelector('#btn-change-categories').addEventListener('click', funct
 });
 
 
+document.getElementById("show-user-info").addEventListener('click', function () {
+    document.querySelector(".owner-info").style.visibility = 'visible';
+});
+
+document.getElementById("close-user-info").addEventListener('click', function () {
+    document.querySelector(".owner-info").style.visibility = 'hidden';
+});
+
+
 
 
 

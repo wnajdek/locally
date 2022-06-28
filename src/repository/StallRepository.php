@@ -74,17 +74,6 @@ class StallRepository extends Repository
         ]);
     }
 
-//    public function deleteStallByUserId(int $id) {
-//        $statement = $this->database->connect()->prepare(
-//            'DELETE FROM public.stall
-//                    WHERE user_id = ?'
-//        );
-//
-//        $statement->execute([
-//            $id
-//        ]);
-//    }
-
 
     public function getStallByName(string $value) {
         $value = strtolower('%' . $value . '%');
@@ -128,12 +117,6 @@ class StallRepository extends Repository
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getUserId(User $user): int
-    {
-        // TODO: get currently logged in user
-        return -1;
     }
 
     public function getStallByUserId(int $id): ?Stall {

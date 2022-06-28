@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css" href="/public/css/navigation.css">
+<script src="public/js/navigation.js" type="text/javascript" defer></script>
+<button id="hamburger"><span class="mif-menu nav-icon"></span></button>
 <nav class="navigation">
+    <button id="hide-navigation"><span class="mif-cross-light nav-icon"></span></button>
     <a id='link-logo' href="/market">
         <h1 class="logo">Locally</h1>
         <p class="slogan">Because the good stuff is local</p>

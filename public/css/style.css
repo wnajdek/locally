@@ -143,7 +143,33 @@ form > button {
     font-size: 1.5em;
 }
 
-@media only screen and (max-device-width: 420px) {
+@media only screen and (max-device-width: 1280px) {
+    body {
+        font-size: 14px;
+    }
+
+    .pop-up-container {
+        height: 60vh;
+    }
+
+    #link-logo {
+        font-size: 10px;
+    }
+
+    .login-text {
+        font-size: 2em;
+    }
+
+    .text-above-sign-up-button {
+        font-size: 2em;
+    }
+
+    form button {
+        width: 120px;
+    }
+}
+
+@media only screen and (max-device-width: 700px) {
     body {
         background: white;
     }

@@ -7,7 +7,7 @@ class UserRepository extends Repository
 {
     public function getUser(string $email): ?User {
         $statement = $this->database->connect()->prepare("
-            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            SELECT public.user.id user_id, email, password, enabled, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
             FROM public.user
             INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
             INNER JOIN public.address ON user_details.address_id = address.id
@@ -41,7 +41,7 @@ class UserRepository extends Repository
 
     public function getUserById(int $id): ?User {
         $statement = $this->database->connect()->prepare("
-            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            SELECT public.user.id user_id, email, password, enabled, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
             FROM public.user
             INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
             INNER JOIN public.address ON user_details.address_id = address.id
@@ -77,7 +77,7 @@ class UserRepository extends Repository
         $result = [];
 
         $statement = $this->database->connect()->prepare('
-            SELECT public.user.id user_id, email, password, enabled, salt, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
+            SELECT public.user.id user_id, email, password, enabled, created_at, user_details_id, public.role.role, first_name, last_name, phone_number, address_id, image, main_address, location_details, city, postal_code 
             FROM public.user
             INNER JOIN public.user_details ON public.user.user_details_id = user_details.id
             INNER JOIN public.address ON user_details.address_id = address.id
@@ -140,12 +140,11 @@ class UserRepository extends Repository
 
 
         $statement = $this->database->connect()->prepare('
-            INSERT INTO public.user (email, password, enabled, salt, created_at, user_details_id, role_id)
+            INSERT INTO public.user (email, password, enabled, created_at, user_details_id, role_id)
             VALUES (?, ?, ?, ?, ? ,? ,?)
         ');
 
         $enabled = true;
-        $salt = 1;
         $createdAt = new DateTime();
         $createdAtString = date_format($createdAt,"Y/m/d H:i:s");
         $roleId = 1; // user
@@ -155,7 +154,6 @@ class UserRepository extends Repository
             $user->getEmail(),
             $user->getPassword(),
             $enabled,
-            $salt,
             $createdAtString,
             $userDetailsId,
             $roleId

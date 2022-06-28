@@ -9,9 +9,10 @@ body {
 
 .main {
     width: 80vw;
-    /* background-color: #0ff2; */
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .offers {
@@ -19,7 +20,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2em;
   padding: 2em;
-  overflow: auto;
+  overflow-y: scroll;
   font-family: 'Roboto', sans-serif;
 
 }
@@ -262,4 +263,22 @@ div[class^='category'] {
 
 .hidden {
     display: none;
+}
+
+@media only screen and (max-width: 1700px) {
+    .offers {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .main {
+        width: 100vw;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .offers {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

@@ -41,6 +41,7 @@
             <?php include('common/stall_forms.php') ?>
 
             <div class="content-container">
+                <button id="show-user-info"><span class="mif-user nav-icon"></span></button>
                 <div class="description-container">
                     <h2><?= $stall->getName()?></h2>
                     <p class="description"><?= $stall->getDescription()?></p>
@@ -95,6 +96,7 @@
                         <p><strong>Email:</strong> <?= $user->getEmail()?></p>
                         <p><strong>Phone:</strong> <?= chunk_split($user->getPhoneNumber(), 3, ' ')?></p>
                         <p><strong>Address:</strong> <?= $user->getMainAddress()?></p>
+                        <button id="close-user-info"><span class="mif-cross-light nav-icon"></span></button>
                     </div>
                 </aside>
             </div>

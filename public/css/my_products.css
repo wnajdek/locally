@@ -16,7 +16,7 @@ button:hover {
 }
 
 .main {
-    width: 80vw;
+    width: 100vw;
     /* background-color: #0ff2; */
     display: flex;
     flex-direction: column;
@@ -87,14 +87,14 @@ button:hover {
 
 
 .content-container {
-    width: 80vw;
+    width: 100%;
     height: 70vh;
     max-height: 70vh;
     /* background-color: green; */
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
-    
+    overflow-y: auto;
 }
 
 .my-offer-container {
@@ -175,35 +175,24 @@ button:hover {
     justify-content: center;
 }
 
-/* .owner-info {
-    width: 90%;
-    height: auto;
-    border: 1px solid #707070;
-
-} */
 
 .owner-info {
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    background-color: transparent;
+    background-color: white;
     width: fit-content;
     height: fit-content;
     padding: 2em;
-    margin-top: 8em;
+    margin-top: 1em;
     display: flex;
     flex-direction: column;
+    align-items: center;
     border: 1px solid #707070;
     outline: 2px solid #EA6C20;
     outline-offset: 2px;
-    /* left: 50%;
-    transform: translateX(-50%); */
-    /* -webkit-box-shadow: 0px 0px 100px 14px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 0px 0px 100px 14px rgba(66, 68, 90, 1);
-    box-shadow: 0px 0px 100px 14px rgba(66, 68, 90, 1); */
+    position: relative;
     transition: .3s;
 }
-
-.owner-info
 
 .owner-info h2 {
     font-family: "Bradley Hand ITC", sans-serif;
@@ -215,11 +204,11 @@ button:hover {
 }
 
 .owner-photo {
-    position: absolute;
+    /*position: absolute;*/
     width: 10em;
     height: 10em;
-    top: calc(-25% - 2em);
-    left: calc(25%);
+    /*top: calc(-45% - 2em);*/
+    /*left: calc(25%);*/
     background-color: red;
     z-index: 100;
     background-image: url("https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
@@ -375,4 +364,112 @@ div[class^='category'] {
 }
 .category-name {
     padding: .3rem .5rem;
+}
+
+#show-user-info, #close-user-info {
+    background-color: transparent;
+    border: none;
+    display: none;
+}
+
+#show-user-info {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    padding: .5em;
+    z-index: 100;
+}
+
+.popup {
+    max-height: 95vh;
+    overflow-y: scroll;
+}
+
+#show-user-info:hover, #close-user-info:hover,
+#show-user-info:focus, #close-user-info:focus{
+    cursor: pointer;
+}
+
+#hamburger {
+    background-color: #FFB300 !important;
+    padding: 0.1rem !important;
+    border-radius: 5px !important;
+}
+
+@media only screen and (min-width: 1301px) {
+    .owner-info {
+        visibility: visible !important;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .main {
+        width: 100vw;
+    }
+
+    .content-container {
+        width: 100vw;
+    }
+
+    .owner-info-container {
+        width: 0;
+        overflow: hidden;
+    }
+
+    .my-offer-container {
+        width: 100%;
+    }
+
+    .owner-info {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        visibility: hidden;
+        z-index: 1000000;
+    }
+
+    #close-user-info, #show-user-info {
+        display: block;
+    }
+
+    #hamburger {
+        top: 1em;
+        left: 0.2em;
+        z-index: 10000;
+    }
+
+    .add-product-text {
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .popup {
+        width: 80vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .product {
+        width: 100%;
+    }
+
+    .product button{
+        right: .25em;
+    }
+
+    .categories{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .description-container {
+        font-size: 0.8rem;
+    }
+
+    #show-user-info {
+        top: .1em;
+        right: .1em;
+    }
 }

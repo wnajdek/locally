@@ -52,3 +52,28 @@ button:hover, button:focus {
 .user-container {
     padding: 4rem 0;
 }
+
+#hamburger {
+    background-color: #FFB300 !important;
+    padding: 0.2rem 0 !important;
+    border-radius: 5px !important;
+}
+
+@media only screen and (max-device-width: 400px) {
+    .user-container {
+        min-width: 300px;
+    }
+}
+
+@media only screen and (max-device-width: 300px) {
+    .user-container {
+        min-width: 240px;
+    }
+}
+
+
+@media only screen and (max-width: 1300px) {
+    .main {
+        width: 100vw;
+    }
+}

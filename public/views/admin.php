@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="public/css/contact.css">
+    <link rel="stylesheet" type="text/css" href="public/css/admin.css">
     <title>Admin panel</title>
 
     <!-- Google Fonts -->
@@ -22,7 +22,7 @@
     <?php include('common/navigation.php') ?>
 
     <main class="main">
-        <div class="contact-container">
+        <div class="table-container">
             <?php foreach ($users as $user): ?>
                 <?php if($user->getId() === $_SESSION['userId']) :?>
                     <h1>Currently simulated user</h1>

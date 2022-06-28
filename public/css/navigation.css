@@ -20,8 +20,32 @@
     text-decoration: none;
 }
 
+#hamburger {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 1.5em;
+}
+
+#hide-navigation {
+    margin-bottom: 1em;
+    display: none;
+}
+
+#hide-navigation, #hamburger {
+    /*padding: 1em;*/
+    /*margin: 1em;*/
+    background-color: transparent;
+    border: none;
+}
+#hide-navigation:hover, #hamburger:hover,
+#hide-navigation:focus, #hamburger:focus {
+    cursor: pointer;
+}
+
+
 .navigation {
-    width: 20vw;
+    width: 400px;
     height: 100vh;
     background-color: #FFB300;
     text-align: center;
@@ -30,6 +54,9 @@
     justify-content: space-around;
     padding: 2em;
     z-index: 1000;
+    overflow: hidden;
+
+    transition: 0.2s;
 }
 
 .navigation > ul {
@@ -51,7 +78,7 @@
 }
 
 .navigation > ul > li > a {
-    display: block;
+    /*display: block;*/
     color: white;
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
@@ -106,4 +133,39 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+
+@media only screen and (min-width: 1301px) {
+    .navigation {
+        width: 400px !important;
+        position: relative !important;
+        padding: 2em !important;
+    }
+
+    #hide-navigation {
+        display: none !important;
+    }
+
+}
+
+@media only screen and (max-width: 1300px) {
+    .navigation {
+        position: fixed;
+        width: 0;
+        padding: 0;
+        z-index: 1000000;
+    }
+
+    #hide-navigation {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #hamburger {
+        top: 1em;
+        left: 0.2em;
+        z-index: 1000;
+    }
 }
