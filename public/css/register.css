@@ -1,6 +1,38 @@
+body, .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.register-container {
+    width: 40%;
+    min-width: 400px;
+}
+
+button {
+    transition: 0.2s;
+}
+
+button:hover, button:focus {
+    transform: scaleX(90%);
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
 
 .invalid-input {
     outline: 2px solid red;
     outline-offset: 2px;
+}
+
+@media only screen and (max-device-width: 400px) {
+    .register-container {
+        min-width: 300px;
+    }
+}
+
+@media only screen and (max-device-width: 300px) {
+    .register-container {
+        min-width: 240px;
+    }
 }

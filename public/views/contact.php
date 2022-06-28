@@ -18,25 +18,14 @@
 </head>
 <body>
     <div class="main-container">
-        <nav class="navigation">
-            <h1 class="logo">Locally</h1>
-            <p class="slogan">Because the good stuff is local</p>
-    
-            <ul>
-                <li><a href="market"><span class="mif-shop nav-icon"></span>Market</a></li>
-                <li><a href="my_products"><span class="mif-home nav-icon"></span>My products</a></li>
-                <li><a href="favourites"><span class="mif-heart nav-icon"></span>Favourites</a></li>
-                <li><a href="info"><span class="mif-info nav-icon"></span>Info</a></li>
-                <li><a href="contact" class="active-page"><span class="mif-mail nav-icon"></span>Contact</a></li>
-            </ul>
-        </nav>
+        <?php include('common/navigation.php') ?>
             
         <main class="main">
             <div class="contact-container">
                 <h1>Contact Us</h1>
-                <form action="">
-                    <input type="email" placeholder="Email">
-                    <input type="text" placeholder="Topic">
+                <form action="/mail" method="post">
+                    <input name="email" type="email" value="<?= $email?>" readonly="readonly">
+                    <input name="topic" type="text" placeholder="Topic">
                     <textarea name="message" cols="30" rows="15" placeholder="Type your message here"></textarea>
                     
                     <button>Send</button>
@@ -44,11 +33,6 @@
             </div>
         </main>
     </div>
-    
-
-
-
-
 
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

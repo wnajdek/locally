@@ -1,0 +1,171 @@
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0px;
+    font-weight: bold;
+    font-size: 2.5em;
+    color: #EA6C20;
+}
+
+.slogan {
+    text-align: left;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.7em;
+    letter-spacing: 5px;
+    color: #EA6C20;
+    margin-top: -1.5em;
+
+}
+
+#link-logo:hover {
+    text-decoration: none;
+}
+
+#hamburger {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 1.5em;
+}
+
+#hide-navigation {
+    margin-bottom: 1em;
+    display: none;
+}
+
+#hide-navigation, #hamburger {
+    /*padding: 1em;*/
+    /*margin: 1em;*/
+    background-color: transparent;
+    border: none;
+}
+#hide-navigation:hover, #hamburger:hover,
+#hide-navigation:focus, #hamburger:focus {
+    cursor: pointer;
+}
+
+
+.navigation {
+    width: 400px;
+    height: 100vh;
+    background-color: #FFB300;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2em;
+    z-index: 1000;
+    overflow: hidden;
+
+    transition: 0.2s;
+}
+
+.navigation > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 2em 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: left;
+}
+
+.navigation > ul > li {
+    padding: .8em 0;
+}
+
+.navigation > ul > li:last-child {
+    margin-top: auto;
+}
+
+.navigation > ul > li > a {
+    /*display: block;*/
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+
+.navigation > ul > li > a:hover {
+    color: black;
+    text-decoration: none;
+    animation-name: example;
+    animation-duration: .5s;
+}
+
+
+@keyframes example {
+    0%   {margin-left: 0px;}
+    25%  {margin-left: 5px;}
+    50%  {margin-left: -5px;}
+    100% {margin-left: 0px;}
+}
+
+.nav-icon {
+    padding: 0 .5em;
+    font-size: 1.3em;
+}
+
+.active-page {
+    color: black !important;
+    font-weight: bold;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /* background: #f1f1f1; */
+    background-color: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+@media only screen and (min-width: 1301px) {
+    .navigation {
+        width: 400px !important;
+        position: relative !important;
+        padding: 2em !important;
+    }
+
+    #hide-navigation {
+        display: none !important;
+    }
+
+}
+
+@media only screen and (max-width: 1300px) {
+    .navigation {
+        position: fixed;
+        width: 0;
+        padding: 0;
+        z-index: 1000000;
+    }
+
+    #hide-navigation {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #hamburger {
+        top: 1em;
+        left: 0.2em;
+        z-index: 1000;
+    }
+}

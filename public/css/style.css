@@ -3,6 +3,18 @@ body {
     background: linear-gradient(90deg, #FFB300 60vw, white 40vw);
 }
 
+button, .sign-up-tile > button {
+    position: relative;
+    transition: 0.25s;
+}
+
+button:hover, .sign-up-tile > button:hover,
+button:focus, .sign-up-tile > button:focus{
+    cursor: pointer;
+    color: white;
+    background-color: black;
+}
+
 .container {
     width: 100vw;
     height: 100vh;
@@ -29,6 +41,14 @@ body {
     text-align: center;
     background-color: white;
     /* border: 1px solid black; */
+}
+
+#link-logo {
+    text-decoration: none;
+}
+
+#link-logo:hover {
+    text-decoration: none;
 }
 
 .logo-container {
@@ -123,7 +143,33 @@ form > button {
     font-size: 1.5em;
 }
 
-@media only screen and (max-device-width: 420px) {
+@media only screen and (max-device-width: 1280px) {
+    body {
+        font-size: 14px;
+    }
+
+    .pop-up-container {
+        height: 60vh;
+    }
+
+    #link-logo {
+        font-size: 10px;
+    }
+
+    .login-text {
+        font-size: 2em;
+    }
+
+    .text-above-sign-up-button {
+        font-size: 2em;
+    }
+
+    form button {
+        width: 120px;
+    }
+}
+
+@media only screen and (max-device-width: 700px) {
     body {
         background: white;
     }

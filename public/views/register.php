@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="public/css/common.css">
     <link rel="stylesheet" type="text/css" href="public/css/register.css">
     <title>Register</title>
 
@@ -22,32 +23,36 @@
     <main class="main">
         <div class="register-container">
             <h1>Register</h1>
-            <form action="">
-                <input type="email" name="email" placeholder="Email">
-                <input type="pasword" name="password" placeholder="Password">
-                <input type="password" name="passwordRepeat" placeholder="Repeat your password">
-                <input type="text" name="firstName" placeholder="First name">
-                <input type="text" name="lastName" placeholder="Last name">
-                <input type="text" name="phone" placeholder="Phone number">
+            <div class="messages">
+                <?php
+                if(isset($messages)){
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                }
+                ?>
+            </div>
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" pattern=".{8,12}" placeholder="Password" required>
+                <input type="password" name="passwordRepeat" pattern=".{8,12}" placeholder="Repeat your password" required>
+                <input type="text" name="firstName" placeholder="First name" required>
+                <input type="text" name="lastName" placeholder="Last name" required>
+                <input type="text" name="phone" placeholder="Phone number" required>
                 <h3>Address</h3>
-                <input type="text" name="mainAddressLine" placeholder="Address line 1">
+                <input type="text" name="mainAddressLine" placeholder="Address line 1" required>
                 <input type="text" name="locationDetails" placeholder="Address line 2">
-                <input type="text" name="city" placeholder="City">
-                <input type="text" name="postalCode" placeholder="Postal code">
+                <input type="text" name="city" placeholder="City"required>
+                <input type="text" name="postalCode" placeholder="Postal code" required>
 
                 <h3>Load your picture</h3>
-                <input type="file" name="image" placeholder="Image">
+                <input type="file" name="image" placeholder="Image" required>
 
                 <button type="submit">Sign up</button>
             </form>
         </div>
     </main>
 </div>
-
-
-
-
-
 
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

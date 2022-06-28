@@ -1,24 +1,41 @@
 <?php
 
 class User {
+    private ?int $id;
     private string $email;
     private string $password;
     private string $firstName;
     private string $lastName;
-    private string $phoneNumber;
-    private string $mainAddress;
-    private string $locationDetails;
-    private string $city;
-    private string $postalCode;
-    private string $image;
+    private ?string $phoneNumber;
+    private ?string $mainAddress;
+    private ?string $locationDetails;
+    private ?string $city;
+    private ?string $postalCode;
+    private ?string $image;
+    private string $role;
+    private ?DateTime $createdAt;
 
-    public function __construct(string $email, string $password, string $firstName, string $lastName)
+
+    public function __construct(string $email, string $password, string $firstName, string $lastName, string $role,
+                                string $phoneNumber = null, string $mainAddress = null, string $locationDetails = null,
+                                string $city = null, string $postalCode = null, string $image = null, int $id = null,
+                                DateTime $createdAt = null)
     {
+        $this->id = $id;
         $this->email = $email;
         $this->password = $password;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->role = $role;
+        $this->phoneNumber = $phoneNumber;
+        $this->mainAddress = $mainAddress;
+        $this->locationDetails = $locationDetails;
+        $this->city = $city;
+        $this->postalCode = $postalCode;
+        $this->image = $image;
+        $this->createdAt = $createdAt;
     }
+
 
     public function getEmail(): string
     {
@@ -119,6 +136,38 @@ class User {
     {
         $this->image = $image;
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
+
 
 
 

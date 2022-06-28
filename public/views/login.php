@@ -17,8 +17,10 @@
         <div class="pop-up-container">
             <div class="login-tile">
                 <div class="logo-container">
-                    <h1 class="logo">Locally</h1>
-                    <p class="slogan">Because the good stuff is local</p>
+                    <a id='link-logo' href="/login">
+                        <h1 class="logo">Locally</h1>
+                        <p class="slogan">Because the good stuff is local</p>
+                    </a>
                 </div>
                 
                 <h1 class="login-text">Login to Your Account</h1>
@@ -43,7 +45,7 @@
             <div class="sign-up-tile">
                 <h1 class="text-above-sign-up-button">Are You New Here?</h1>
     
-                <button>Sign Up</button>
+                <button onclick="location.href='/register'">Sign Up</button>
             </div>
         </div>
     </div>
